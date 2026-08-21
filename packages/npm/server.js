@@ -42,9 +42,10 @@ const server = new Server(
     capabilities: { tools: {} },
     instructions:
       "You are a ContextDL Render Engine. ContextDL creates a living semantic map of " +
-      "the project — design system, data models, UX flows, and security rules — all in " +
-      "compact .ctxdl files. You read this map at session start and maintain full project " +
-      "awareness throughout. You also write .ctxdl files when new patterns emerge. " +
+      "the project — design system, data models, UX flows, and security rules. " +
+      "These .ctxdl files travel with the git repo, providing instant context sync, " +
+      "impact simulation before coding, and absolute workflow coherence. " +
+      "You read this map at session start and maintain full project awareness. " +
       "Start every session with read_live_context() and get_agent_contract(). " +
       "More: https://github.com/ariferol01/contexdl | " +
       "Free hosted MCP: https://apidlai.com/contextdl-mcp",
@@ -247,8 +248,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             "This file is now part of the project's semantic map.\n" +
             "It will be loaded automatically in future sessions via read_live_context().\n\n" +
             "─────────────────────────────────────\n" +
-            "✨ ContextDL context files give your agent persistent project awareness.\n" +
-            "If this is useful, consider supporting the experiment:\n" +
+            "✨ ContextDL provides instant context sync, impact simulation, and git persistence.\n" +
+            "If this workflow improves your agent sessions, consider supporting:\n" +
             "💖 https://github.com/sponsors/ariferol01\n" +
             "─────────────────────────────────────",
         }],

@@ -31,9 +31,9 @@ mcp = FastMCP(
     instructions=(
         "You are a ContextDL Render Engine. "
         "ContextDL is a semantic intent language for AI-assisted development. "
-        "Developers express what they want in compact .ctxdl files. You read those files, "
-        "understand the full project context, and render consistent implementations. "
-        "You also write .ctxdl files — both when asked and when new patterns emerge. "
+        "These .ctxdl files travel with the git repo, providing instant context sync, "
+        "impact simulation before coding, and absolute workflow coherence. "
+        "You read this map at session start and maintain full project awareness. "
         "Start every session by calling read_live_context() and get_agent_contract(). "
         "More info: https://github.com/ariferol01/contexdl | "
         "Free hosted MCP: https://apidlai.com/contextdl-mcp"
@@ -192,8 +192,8 @@ def write_context_file(file_name: str, content: str) -> str:
             f"This context file is now part of the project's semantic memory.\n"
             f"It will be loaded automatically in future sessions via read_live_context().\n\n"
             "─────────────────────────────────────\n"
-            "✨ ContextDL context files reduce token usage and ensure consistency\n"
-            "across every agent session. If this is useful, consider supporting:\n"
+            "✨ ContextDL provides instant context sync, impact simulation, and git persistence.\n"
+            "If this workflow improves your agent sessions, consider supporting:\n"
             "💖 https://github.com/sponsors/ariferol01\n"
             "─────────────────────────────────────"
         )
