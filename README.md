@@ -2,7 +2,7 @@
 
 # ContextDL
 
-### Don't write prompts, express intent. Keep your project's context alive.
+### Don't write prompts, express intent. Keep your project's context alive. Model everything.
 
 <sub>an open-source project by <a href="https://apidlai.com">apidl</a></sub>
 
@@ -200,6 +200,26 @@ Before you code. Before you break anything.
 > 
 > *If context is a data type, we can encode and decode it using context itself. When we reduce context into a semantic language, it stops being abstract noise and becomes a structured entity. And because it is structured, we unlock the ultimate capability:* **We can use context to validate context.**
 
+This philosophical foundation drives the three core pillars of ContextDL:
+
+1. **Model Everything:** Not just code. UI, workflows, logical processes, future plans, and behaviors—all phenomena can be coded and modeled with ContextDL.
+2. **Self-Validation:** Because context is structured, the map can reason about and validate itself.
+3. **Live Sync Across Agents:** Context is just text. Through Git, it becomes a live, shared semantic brain across multiple developers and AI agents.
+
+---
+
+### 🧩 1. Model Everything
+
+You don't just generate boilerplate. You model the phenomena of your project.
+
+ContextDL allows you to map out your entire digital ecosystem. From the visual aesthetics (`ui.ctxdl`), to user journeys (`ux.ctxdl`), data structures (`db.ctxdl`), and even future roadmaps or agent behaviors. 
+
+Everything is encoded in a lightweight, machine-readable format. If it exists in your project's universe, you can model it with ContextDL.
+
+---
+
+### 🛡️ 2. The Map Validates Itself
+
 Your context files depend on each other.
 
 If UX flows reference a component, that component should exist in `ui.ctxdl`. If a DB model changes, the UX flows that read it may need to be updated. If an endpoint is marked protected, a security rule should cover it.
@@ -241,7 +261,7 @@ This is not just validation. This is the map reasoning about itself.
 
 ---
 
-### 🌍 Git Persistence & Live Sync Across Agents
+### 🌍 3. Live Sync Across Agents
 
 ContextDL is just a set of text files. That means it inherits the most powerful version control system on the planet: Git.
 
