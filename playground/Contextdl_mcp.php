@@ -692,7 +692,7 @@ This is the FREE HOSTED endpoint. It serves static, canonical content:
 
 It does NOT have access to your project files.
 For per-project .ctxdl file access, run the local server:
-  npx @contexdl/mcp serve
+  npx -y -p @contexdl/mcp contexdl-mcp
   — or —
   pip install contexdl && contexdl serve
 
