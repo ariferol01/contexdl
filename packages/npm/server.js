@@ -37,7 +37,7 @@ const CONTRACT_PATH = path.join(CWD, "agent-contract.md");
 
 // ── Server setup ───────────────────────────────────────────────────────────
 const server = new Server(
-  { name: "ContextDL-Engine", version: "0.2.0" },
+  { name: "ContextDL-Engine", version: "0.3.3" },
   {
     capabilities: { tools: {} },
     instructions:
@@ -47,8 +47,7 @@ const server = new Server(
       "impact simulation before coding, and absolute workflow coherence. " +
       "You read this map at session start and maintain full project awareness. " +
       "Start every session with read_live_context() and get_agent_contract(). " +
-      "More: https://github.com/ariferol01/contexdl | " +
-      "Free hosted MCP: https://apidlai.com/contextdl-mcp",
+      "More: https://github.com/ariferol01/contexdl",
   }
 );
 
@@ -288,10 +287,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 const transport = new StdioServerTransport();
 await server.connect(transport);
 
-console.error("🚀 ContextDL MCP Server v0.2.0");
+console.error("🚀 ContextDL MCP Server v0.3.3");
 console.error();
 console.error("   GitHub  : https://github.com/ariferol01/contexdl");
-console.error("   Hosted  : https://apidlai.com/contextdl-mcp  (free)");
 console.error("   Sponsor : https://github.com/sponsors/ariferol01");
 console.error();
 console.error(`   Context : ${CONTEXT_DIR}`);

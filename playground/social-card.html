@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContextDL Social Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .slogan-container {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .slogan {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #f8fafc;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sub-slogan {
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: #4ade80;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            z-index: 10;
+        }
+
+        .card {
+            background: #000000;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-header {
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+            border-radius: 12px 12px 0 0;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot.red { background-color: #ff5f56; }
+        .dot.yellow { background-color: #ffbd2e; }
+        .dot.green { background-color: #27c93f; }
+
+        .header-title {
+            margin-left: 0.75rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: row;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            align-items: stretch;
+        }
+
+        /* PROMPT SECTION */
+        .section-prompt {
+            flex: 1;
+            padding: 3rem;
+            background: #050505;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-label.bad { color: #f87171; }
+        .section-label.good { color: #4ade80; }
+
+        .prompt-text-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .prompt-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #64748b;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .prompt-text-wrapper::before,
+        .prompt-text-wrapper::after {
+            content: '';
+            position: absolute;
+            left: -2%;
+            top: 50%;
+            width: 104%;
+            height: 4px;
+            background-color: #ef4444;
+            border-radius: 2px;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+        
+        .prompt-text-wrapper::before { transform: translateY(-50%) rotate(8deg); }
+        .prompt-text-wrapper::after { transform: translateY(-50%) rotate(-8deg); }
+
+        /* VS DIVIDER */
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            border-left: 1px solid #334155;
+            border-right: 1px solid #334155;
+            width: 80px;
+            position: relative;
+        }
+
+        .vs-text {
+            color: #f8fafc;
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border: 1px solid #475569;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        /* CONTEXTDL SECTION */
+        .section-code {
+            flex: 1.3;
+            padding: 3rem;
+            background: #0f172a;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #f1f5f9;
+            background: #000000;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .code-block.outline {
+            background: transparent;
+            border: none;
+            border-left: 2px solid #334155;
+            border-radius: 0;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            color: #cbd5e1;
+        }
+        
+        .code-block.outline .indent {
+            display: block;
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .code-block.outline .indent::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.8rem;
+            width: 6px;
+            height: 1px;
+            background: #475569;
+        }
+
+        .code-block .keyword { color: #c678dd; } /* purple */
+        .code-block .layer-db { color: #e5c07b; font-weight: bold; } /* gold */
+        .code-block .layer-ui { color: #61afef; font-weight: bold; } /* blue */
+        .code-block .layer-ux { color: #c678dd; font-weight: bold; } /* purple */
+        .code-block .operator { color: #56b6c2; } /* cyan */
+        .code-block .string { color: #98c379; } /* green */
+        .code-block .action { color: #e06c75; } /* red */
+
+        .or-divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .or-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #334155;
+            z-index: 1;
+        }
+
+        .or-text {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid #475569;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+        }
+
+        .same-intent-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+
+        .same-intent-badge {
+            color: #000;
+            background: #4ade80;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+        }
+
+        .logo-mark {
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: #475569;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="slogan-container">
+        <h1 class="slogan">Don't write prompts. Express intent.</h1>
+        <h2 class="sub-slogan">Write ContextDL.</h2>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+            
+            <div class="window-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <div class="header-title">login.ctxdl</div>
+            </div>
+
+            <div class="content-area">
+                
+                <!-- PROMPT SECTION -->
+                <div class="section-prompt">
+                    <div class="section-label bad">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        Verbose Prompt
+                    </div>
+                    
+                    <div class="prompt-text-wrapper">
+                        <div class="prompt-text">
+                            "I need you to write the logic for the user login flow. First, please make sure to validate the form inputs by checking if the email format is correct and the password meets our security requirements. If the validation passes and the backend returns a success response, I want you to connect to the database and create a new active session for the user. After that, please render a green success toast notification in the UI that says 'Welcome back!'. Finally, use our UX animation library to trigger a 'slideOutLeft' transition on the login form component so it smoothly exits the screen. However, if the validation fails or the backend throws an error, please display a red error toast message, and also apply a CSS 'shake' animation to the form container to indicate to the user that something went wrong."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VS DIVIDER -->
+                <div class="vs-divider">
+                    <div class="vs-text">VS</div>
+                </div>
+
+                <!-- CONTEXTDL SECTION -->
+                <div class="section-code">
+                    <div class="section-label good">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Multi-layer ContextDL Expression
+                    </div>
+                    
+                    <div class="code-block">
+                        <span class="action">user.login</span> <span class="operator">?</span> <span class="keyword">form.validate</span> <span class="operator">-></span> success: <span class="layer-db">db.</span>session.start <span class="operator">-></span> <span class="layer-ui">ui.</span>toast.success <span class="operator">-></span> <span class="layer-ux">ux.</span>form.animate(<span class="string">slideOutLeft</span>) | fail: <span class="layer-ui">ui.</span>toast.error <span class="operator">-></span> <span class="layer-ux">ux.</span>form.animate(<span class="string">shake</span>)
+                    </div>
+
+                    <div class="or-divider">
+                        <span class="or-text">OR</span>
+                    </div>
+
+                    <div class="code-block outline">
+                        <b>user.login</b>:
+                        <span class="indent">validate: form</span>
+                        <span class="indent">on success:</span>
+                        <span class="indent" style="margin-left: 3rem;"><b>db</b>.session.start</span>
+                        <span class="indent" style="margin-left: 3rem;"><b>ui</b>.toast.success</span>
+                        <span class="indent" style="margin-left: 3rem;"><b>ux</b>.form.animate(slideOutLeft)</span>
+                        <span class="indent">on fail:</span>
+                        <span class="indent" style="margin-left: 3rem;"><b>ui</b>.toast.error</span>
+                        <span class="indent" style="margin-left: 3rem;"><b>ux</b>.form.animate(shake)</span>
+                    </div>
+
+                    <div class="same-intent-wrapper">
+                        <div class="same-intent-badge">Same Intent. Zero Yapping.</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5zM2 17l9 5 9-5V7l-9 5z"/></svg>
+            ContextDL
+        </div>
+    </div>
+
+</body>
+</html>

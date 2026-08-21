@@ -42,7 +42,7 @@
 
 **1. Run the local MCP server**
 ```bash
-npx -y @contexdl/mcp
+npx -y -p @contexdl/mcp contexdl-mcp
 ```
 
 *(Note: Add this to your editor's MCP config like Cursor or Claude Desktop to let the AI connect to it automatically).*
@@ -250,7 +250,7 @@ New patterns → agent updates the relevant `.ctxdl` file → map stays current.
 You can run the ContextDL MCP server directly via `npx` (No installation needed).
 
 ```bash
-npx -y @contexdl/mcp
+npx -y -p @contexdl/mcp contexdl-mcp
 ```
 
 **Cursor / Windsurf / VS Code configuration:**
@@ -260,7 +260,7 @@ npx -y @contexdl/mcp
     "servers": {
       "contexdl": {
         "command": "npx",
-        "args": ["-y", "@contexdl/mcp"]
+        "args": ["-y", "-p", "@contexdl/mcp", "contexdl-mcp"]
       }
     }
   }
@@ -273,7 +273,7 @@ npx -y @contexdl/mcp
   "mcpServers": {
     "contexdl": {
       "command": "npx",
-      "args": ["-y", "@contexdl/mcp"]
+      "args": ["-y", "-p", "@contexdl/mcp", "contexdl-mcp"]
     }
   }
 }

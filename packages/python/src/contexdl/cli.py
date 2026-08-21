@@ -27,7 +27,7 @@ from mcp.server.fastmcp import FastMCP
 # ── Server initialization ───────────────────────────────────────────────────
 mcp = FastMCP(
     name="ContextDL-Engine",
-    version="0.2.0",
+    version="0.3.3",
     instructions=(
         "You are a ContextDL Render Engine. "
         "ContextDL is a semantic intent language for AI-assisted development. "
@@ -35,8 +35,7 @@ mcp = FastMCP(
         "impact simulation before coding, and absolute workflow coherence. "
         "You read this map at session start and maintain full project awareness. "
         "Start every session by calling read_live_context() and get_agent_contract(). "
-        "More info: https://github.com/ariferol01/contexdl | "
-        "Free hosted MCP: https://apidlai.com/contextdl-mcp"
+        "More info: https://github.com/ariferol01/contexdl"
     ),
 )
 
@@ -301,14 +300,16 @@ def validate_context() -> str:
 
 # ── Entry point ─────────────────────────────────────────────────────────────
 
-if __name__ == "__main__":
-    print("🚀 ContextDL MCP Server v0.2.0")
+def main():
+    print("🚀 ContextDL MCP Server v0.3.3")
     print()
     print("   GitHub  : https://github.com/ariferol01/contexdl")
-    print("   Hosted  : https://apidlai.com/contextdl-mcp  (free)")
     print("   Sponsor : https://github.com/sponsors/ariferol01")
     print()
     print(f"   Context : {CONTEXT_DIR}")
     print(f"   Contract: {CONTRACT_PATH}")
     print()
     mcp.run()
+
+if __name__ == "__main__":
+    main()

@@ -42,23 +42,10 @@
 
 **1. Connect your AI Agent to the MCP server**
 
-*Option A: Use the free hosted endpoint (No local installation)*
-Add this to your editor's MCP configuration (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
-    }
-  }
-}
-```
-
-*Option B: Run a local MCP server*
+*Run a local MCP server*
 ```bash
 # via npm
-npx -y @contexdl/mcp
+npx -y -p @contexdl/mcp contexdl-mcp
 
 # or via python
 pip install contexdl
@@ -263,27 +250,7 @@ New patterns → agent updates the relevant `.ctxdl` file → map stays current.
 
 ## Connect your AI agent
 
-### 🌐 Option 1 — Hosted MCP (recommended, free)
-
-No installation required.
-
-**`https://apidlai.com/contextdl-mcp`**
-
-Claude Desktop (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
-    }
-  }
-}
-```
-
----
-
-### 🐍 Option 2 — Local Python
+### 🐍 Option 1 — Local Python
 
 ```bash
 pip install contexdl
@@ -312,10 +279,10 @@ Claude Desktop config:
 
 ---
 
-### 📦 Option 3 — Local npm
+### 📦 Option 2 — Local npm
 
 ```bash
-npx @contexdl/mcp
+npx -y -p @contexdl/mcp contexdl-mcp
 ```
 
 Cursor / Windsurf / VS Code:
@@ -325,7 +292,7 @@ Cursor / Windsurf / VS Code:
     "servers": {
       "contexdl": {
         "command": "npx",
-        "args": ["@contexdl/mcp"]
+        "args": ["-y", "-p", "@contexdl/mcp", "contexdl-mcp"]
       }
     }
   }
