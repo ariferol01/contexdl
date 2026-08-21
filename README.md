@@ -36,15 +36,23 @@
 
 ## Quick Start (How to use)
 
-**1. Run the MCP server** (No installation required)
+**1. Connect your AI Agent to the MCP server**
+
+*Option A: Use the free hosted endpoint (No local installation)*
+Point your editor's MCP configuration (Cursor, Claude, Windsurf, etc.) to:
+`https://apidlai.com/contextdl-mcp`
+
+*Option B: Run a local MCP server*
 ```bash
+# via npm
 npx -y @contexdl/mcp
+
+# or via python
+pip install contexdl
+contexdl serve
 ```
 
-**2. Connect your AI Agent** (Cursor, Claude, Windsurf, etc.)
-Point your editor's MCP configuration to the local server or use our free hosted endpoint: `https://apidlai.com/contextdl-mcp`
-
-**3. Express your intent**
+**2. Express your intent**
 Start writing in a `.ctxdl` file. 
 
 ```text
