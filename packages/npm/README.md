@@ -40,30 +40,12 @@
 
 ## Quick Start (How to use)
 
-**1. Connect your AI Agent to the MCP server**
-
-*Option A: Use the free hosted endpoint (No local installation)*
-Add this to your editor's MCP configuration (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
-    }
-  }
-}
-```
-
-*Option B: Run a local MCP server*
+**1. Run the local MCP server**
 ```bash
-# via npm
 npx -y @contexdl/mcp
-
-# or via python
-pip install contexdl
-contexdl serve
 ```
+
+*(Note: Add this to your editor's MCP config like Cursor or Claude Desktop to let the AI connect to it automatically).*
 
 **2. Express your intent**
 Start writing in a `.ctxdl` file. 
@@ -263,76 +245,41 @@ New patterns → agent updates the relevant `.ctxdl` file → map stays current.
 
 ## Connect your AI agent
 
-### 🌐 Option 1 — Hosted MCP (recommended, free)
+### 📦 NPM / NPX
 
-No installation required.
-
-**`https://apidlai.com/contextdl-mcp`**
-
-Claude Desktop (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
-    }
-  }
-}
-```
-
----
-
-### 🐍 Option 2 — Local Python
+You can run the ContextDL MCP server directly via `npx` (No installation needed).
 
 ```bash
-pip install contexdl
-contexdl serve
+npx -y @contexdl/mcp
 ```
 
-Or from source:
-```bash
-git clone https://github.com/ariferol01/contexdl.git
-cd contexdl
-pip install -r requirements.txt
-python packages/python/server.py
-```
-
-Claude Desktop config:
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "python",
-      "args": ["/path/to/contexdl/packages/python/server.py"]
-    }
-  }
-}
-```
-
----
-
-### 📦 Option 3 — Local npm
-
-```bash
-npx @contexdl/mcp
-```
-
-Cursor / Windsurf / VS Code:
+**Cursor / Windsurf / VS Code configuration:**
 ```json
 {
   "mcp": {
     "servers": {
       "contexdl": {
         "command": "npx",
-        "args": ["@contexdl/mcp"]
+        "args": ["-y", "@contexdl/mcp"]
       }
     }
   }
 }
 ```
 
----
+**Claude Desktop configuration:**
+```json
+{
+  "mcpServers": {
+    "contexdl": {
+      "command": "npx",
+      "args": ["-y", "@contexdl/mcp"]
+    }
+  }
+}
+```
+
+*(For Python or Hosted versions, please see the [main Github repository](https://github.com/ariferol01/contexdl)).*
 
 ## What the map unlocks
 
