@@ -71,12 +71,10 @@ user.login:
     if fail -> ui.alert.error("Invalid credentials")
 ```
 
-OR (same intent, natural language style):
+OR (same intent, dot notation):
 
 ```text
-when user logs in, validate email and password.
-if valid, create db session and redirect to dashboard.
-if invalid, show an error alert.
+user.login ? validate(form) -> success: db.session.start -> redirect(/dashboard) | fail: ui.error
 ```
 
 OR (same intent, OOP style):
