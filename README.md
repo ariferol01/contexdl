@@ -475,14 +475,22 @@ One map. Every tool. Every session. Every developer.
 
 ## Contributing
 
-- Try it. Report what happened — good or bad.
-- Generate `.ctxdl` files for your project and share the patterns
-- Run token and consistency benchmarks — share real numbers
-- Write domain-specific examples: auth, e-commerce, DevOps, SaaS, data pipelines
-- Propose validation rules for specific domains
-- Open issues. Open PRs. Break things.
+### What you can do today
+- **Try it** — run `npx @contexdl/mcp generate` on a real project, report what worked and what didn't
+- **Share benchmarks** — token counts, consistency scores, output quality compared to verbose prompts
+- **Add examples** — domain-specific `.ctxdl` patterns for e-commerce, DevOps, SaaS, data pipelines
+- **Improve `generate`** — the CLI detects Next.js, Prisma, Tailwind. Add support for your stack
+- **Open issues, open PRs, break things**
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+### Community challenges — looking for contributors
+
+🎯 **VS Code / Cursor syntax highlighting** — `.ctxdl` files have no highlighting yet. A TextMate grammar that highlights `if`, `each`, `->`, `fail:`, `warn:`, `on.change()` would be a massive DX improvement. [Claim this →](https://github.com/ariferol01/contexdl/issues)
+
+📊 **Real benchmark data** — the README has hypothetical numbers. Replace them with real ones. Run the same task as a verbose prompt and as a ContextDL intent, measure tokens + output quality, share the table.
+
+🔌 **Stack-specific `generate` support** — Django models, Rails routes, Laravel structure, GraphQL schemas, OpenAPI specs — if you work in these stacks, you know what to extract.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ---
 
