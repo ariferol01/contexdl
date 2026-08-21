@@ -1,0 +1,41 @@
+# ContextDL DB Context
+# Data models and storage rules. Define once, reference everywhere.
+
+# --- Storage Strategy ---
+storage.default: localStorage
+storage.sync: optional, off-by-default
+storage.key-prefix: "ctxdl_"
+
+# --- Models ---
+model.todo:
+    id: uuid, auto-generated
+    text: string, required, min=1, max=500
+    completed: boolean, default=false
+    priority: enum[low, medium, high], default=medium
+    createdAt: datetime, auto-set-on-create
+    updatedAt: datetime, auto-set-on-update
+    tags: string[], optional
+
+model.user:
+    id: uuid, auto-generated
+    name: string, required
+    email: string, unique, required
+    createdAt: datetime, auto-set-on-create
+
+# --- Relations ---
+todo.belongsTo: user (optional, for multi-user)
+
+# --- Queries ---
+query.todo.all: order-by=createdAt DESC
+query.todo.active: where completed=false
+query.todo.completed: where completed=true
+query.todo.byPriority: order-by=priority DESC, createdAt DESC
+
+# --- Validation Rules ---
+validate.todo.text: required, trim-whitespace, no-xss
+validate.todo.priority: must-be-enum-value
+
+# --- Data Events ---
+on.todo.create: set createdAt=now(), set id=uuid()
+on.todo.update: set updatedAt=now()
+on.todo.delete: hard-delete (no soft-delete by default)

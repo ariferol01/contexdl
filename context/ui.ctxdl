@@ -1,0 +1,92 @@
+# ContextDL UI Context
+# Define your design system once. Reference it forever.
+
+# --- Theme ---
+theme: dark
+background: #0f0f13
+surface: #1a1a24
+surface-elevated: #22222f
+
+accent: #6C63FF
+accent-hover: #5a52e0
+accent-subtle: rgba(108, 99, 255, 0.12)
+
+text-primary: #f0f0f5
+text-secondary: #9090a8
+text-muted: #5a5a72
+border: rgba(255,255,255,0.08)
+
+# --- Typography ---
+font: Inter, system-ui, sans-serif
+font-mono: JetBrains Mono, Fira Code, monospace
+font-size-base: 16px
+font-size-sm: 14px
+line-height: 1.6
+
+# --- Spacing ---
+spacing-xs: 4px
+spacing-sm: 8px
+spacing-md: 16px
+spacing-lg: 24px
+spacing-xl: 48px
+
+# --- Border Radius ---
+radius-sm: 6px
+radius-md: 10px
+radius-lg: 16px
+radius-full: 9999px
+
+# --- Shadows ---
+shadow-sm: 0 1px 3px rgba(0,0,0,0.3)
+shadow-md: 0 4px 16px rgba(0,0,0,0.4)
+shadow-glow-accent: 0 0 20px rgba(108,99,255,0.25)
+
+# --- Animations ---
+animation-fast: 150ms ease
+animation-normal: 250ms ease
+animation-slow: 400ms ease
+animation-fade-in: fade-in 200ms ease
+animation-slide-up: slide-up 250ms ease
+
+# --- Components ---
+button.primary:
+    background: accent
+    color: white
+    padding: spacing-sm spacing-lg
+    border-radius: radius-md
+    font-weight: 600
+    transition: animation-fast
+    hover: background=accent-hover, shadow=shadow-glow-accent
+
+button.secondary:
+    background: transparent
+    color: text-secondary
+    border: 1px solid border
+    padding: spacing-sm spacing-lg
+    border-radius: radius-md
+    hover: border-color=accent-subtle, color=text-primary
+
+button.danger:
+    background: transparent
+    color: #ff6b6b
+    hover: background=rgba(255,107,107,0.1)
+
+input.default:
+    background: surface
+    border: 1px solid border
+    border-radius: radius-md
+    padding: spacing-sm spacing-md
+    color: text-primary
+    font: inherit
+    focus: border-color=accent, outline=none, shadow=shadow-glow-accent
+
+card:
+    background: surface
+    border: 1px solid border
+    border-radius: radius-lg
+    padding: spacing-lg
+    shadow: shadow-sm
+
+badge.success: background=#1a3a2a, color=#4ade80, radius=radius-full
+badge.error:   background=#3a1a1a, color=#f87171, radius=radius-full
+badge.info:    background=accent-subtle, color=accent, radius=radius-full

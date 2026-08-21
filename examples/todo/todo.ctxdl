@@ -1,0 +1,51 @@
+# ContextDL — Todo Example
+# This is a complete todo application expressed as ContextDL intent.
+# Paste this file into your project and run it through the MCP server.
+
+# --- Intents ---
+
+todo.add:
+    validate: input.trim -> if empty -> alert.error("Task cannot be empty")
+    then: db.save(todo) -> ui.list.prepend(todo) -> input.clear -> counter.update
+
+todo.complete:
+    toggle: todo.completed
+    then: db.save -> ui.item.style(completed=strikethrough+opacity-50) -> counter.update
+
+todo.uncomplete:
+    toggle: todo.completed
+    then: db.save -> ui.item.style(remove-completed-style) -> counter.update
+
+todo.delete:
+    confirm: inline, undo-available=5s
+    then: db.remove -> ui.item.animate(slide-out) -> counter.update
+
+todo.edit:
+    trigger: double-click on todo.text
+    then: ui.item.switch-to-edit-mode
+    save: on-enter OR on-blur -> validate -> db.save -> ui.item.switch-to-view-mode
+
+todo.set_priority:
+    options: [low, medium, high]
+    then: db.save -> ui.item.badge.update(priority)
+
+todo.filter:
+    tabs: [all, active, completed]
+    then: db.query(filter) -> ui.list.rerender(animated)
+
+todo.clear_completed:
+    confirm: dialog, "Remove all completed tasks?"
+    then: db.removeWhere(completed=true) -> ui.list.rerender
+
+todo.sort:
+    options: [by-date, by-priority, by-name]
+    then: db.query(sort) -> ui.list.rerender(animated)
+
+# --- Keyboard Shortcuts ---
+shortcut.n: focus-input
+shortcut.escape: cancel-current-action
+shortcut.enter: submit-current-form
+
+# --- Counters ---
+counter.active: count(todos where completed=false), live-update
+counter.completed: count(todos where completed=true), live-update

@@ -1,0 +1,29 @@
+# ContextDL Security Context
+# Security rules that apply globally across the project.
+
+# --- Authentication ---
+auth.required: false (public project, no login needed)
+auth.session: none
+
+# --- Input Sanitization ---
+input.sanitize: always, trim-whitespace, strip-html-tags
+input.max-length: 500 chars (all text fields)
+input.xss: reject-script-tags, encode-html-entities
+
+# --- Storage Security ---
+storage.sensitive-data: never-store-in-localStorage
+storage.keys: use-prefix "ctxdl_", avoid collisions
+
+# --- Rate Limiting ---
+rate-limit.add: 60 items per minute (client-side throttle)
+rate-limit.delete: 30 actions per minute (client-side throttle)
+
+# --- CSP (Content Security Policy) ---
+csp.scripts: self-only
+csp.styles: self + inline (required for dynamic theming)
+csp.images: self + data: URIs
+
+# --- Data Privacy ---
+analytics: none by default
+tracking: none
+third-party-requests: none

@@ -1,0 +1,5 @@
+model.todo: {id, text, completed, priority, createdAt}
+storage: localStorage
+key-prefix: "ctxdl_todo_"
+query.default: order-by=createdAt DESC
+validate.text: required, trim, max=500

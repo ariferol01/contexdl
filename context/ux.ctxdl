@@ -1,0 +1,50 @@
+# ContextDL UX Context
+# User experience rules. Written once, followed always.
+
+# --- Navigation ---
+nav.default: top-bar, sticky, blur-backdrop
+nav.mobile: bottom-bar, 5-items-max
+breadcrumbs: show-on-depth>=2
+
+# --- Loading States ---
+loading.initial: skeleton-screen, not spinner
+loading.action: button.disabled + spinner-inline
+loading.page: full-overlay + spinner-center
+
+# --- Empty States ---
+empty-state: illustration + title + subtitle + primary-cta
+empty-state.list: "Nothing here yet." + add-button
+
+# --- Error Handling ---
+error.form-field: inline-below-field, red-text, icon-warning
+error.network: toast-notification, position=top-center, auto-dismiss=5s
+error.critical: full-page-error, retry-button
+
+# --- Success Feedback ---
+success.action: toast-notification, position=top-center, auto-dismiss=3s
+success.form: redirect OR inline-confirmation
+
+# --- Confirmation Dialogs ---
+confirm.destructive: modal-dialog, title="Are you sure?", requires-explicit-yes
+confirm.minor: inline-confirmation, undo-available=5s
+
+# --- Accessibility ---
+a11y.focus: visible-focus-ring, color=accent
+a11y.contrast: minimum-4.5:1
+a11y.motion: respect-prefers-reduced-motion
+a11y.keyboard: all-interactive-elements-reachable
+
+# --- Responsive ---
+breakpoint.mobile: <768px
+breakpoint.tablet: 768px-1024px
+breakpoint.desktop: >1024px
+
+layout.mobile: single-column, stack-vertically
+layout.tablet: 2-column-where-appropriate
+layout.desktop: sidebar + main-content
+
+# --- Interactions ---
+interaction.hover: subtle-highlight, cursor-pointer
+interaction.active: scale(0.97), brightness(0.9)
+interaction.drag: opacity=0.8, shadow=shadow-md
+interaction.drop: border-dashed, border-color=accent

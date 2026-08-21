@@ -1,0 +1,40 @@
+{
+  "name": "@contexdl/mcp",
+  "version": "0.1.0",
+  "description": "Don't write prompts. Express intent. ContextDL MCP server for AI-assisted development.",
+  "main": "server.js",
+  "bin": {
+    "contexdl-mcp": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mcp",
+    "ai",
+    "intent",
+    "semantic",
+    "context",
+    "llm",
+    "agent",
+    "coding",
+    "contexdl"
+  ],
+  "author": "ariferol01 <https://github.com/ariferol01>",
+  "license": "MIT",
+  "homepage": "https://github.com/ariferol01/contexdl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ariferol01/contexdl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ariferol01/contexdl/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

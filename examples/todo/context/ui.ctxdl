@@ -1,0 +1,6 @@
+theme: dark, accent=#6C63FF
+font: Inter, system-ui
+animation: fade-in 200ms ease
+button.primary: accent-bg, white-text, rounded-md
+input: border-subtle, focus-ring-accent
+card: surface-dark, border-subtle, radius-lg

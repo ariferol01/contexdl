@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contexdl"
+version = "0.1.0"
+description = "Don't write prompts. Express intent. A semantic language and MCP server for AI-assisted development."
+readme = "../../README.md"
+license = { file = "../../LICENSE" }
+authors = [
+    { name = "ariferol01", url = "https://github.com/ariferol01" }
+]
+keywords = [
+    "mcp",
+    "ai",
+    "intent",
+    "semantic",
+    "context",
+    "llm",
+    "agent",
+    "coding",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "mcp[cli]>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ariferol01/contexdl"
+Repository = "https://github.com/ariferol01/contexdl"
+"Bug Tracker" = "https://github.com/ariferol01/contexdl/issues"
+Discussions = "https://github.com/ariferol01/contexdl/discussions"
+"GitHub Sponsors" = "https://github.com/sponsors/ariferol01"
+
+[project.scripts]
+contexdl = "contexdl.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/contexdl"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/README.md",
+    "/LICENSE",
+]
