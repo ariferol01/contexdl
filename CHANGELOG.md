@@ -1,5 +1,7 @@
 # ContextDL Changelog
 
+> ContextDL is the open-source MCP workflow of **[AIDL (apidlai.com)](https://apidlai.com)**.
+
 ## [0.3.0] — 2026-08-21
 
 ### Added
