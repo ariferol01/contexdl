@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "contexdl"
-version = "0.3.4"
+version = "0.3.5"
 description = "Don't write prompts. Express intent. A semantic language and MCP server for AI-assisted development."
 readme = "README.md"
 license = { file = "LICENSE" }

@@ -1,6 +1,6 @@
 {
   "name": "@contexdl/mcp",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Don't write prompts. Express intent. ContextDL MCP server + CLI for AI-assisted development.",
   "main": "server.js",
   "bin": {

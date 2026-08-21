@@ -27,7 +27,7 @@ from mcp.server.fastmcp import FastMCP
 # ── Server initialization ───────────────────────────────────────────────────
 mcp = FastMCP(
     name="ContextDL-Engine",
-    version="0.3.4",
+    version="0.3.5",
     instructions=(
         "You are a ContextDL Render Engine. "
         "ContextDL is a semantic intent language for AI-assisted development. "
@@ -301,7 +301,7 @@ def validate_context() -> str:
 # ── Entry point ─────────────────────────────────────────────────────────────
 
 def main():
-    print("🚀 ContextDL MCP Server v0.3.4")
+    print("🚀 ContextDL MCP Server v0.3.5")
     print()
     print("   GitHub  : https://github.com/ariferol01/contexdl")
     print("   Sponsor : https://github.com/sponsors/ariferol01")

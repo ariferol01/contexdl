@@ -105,6 +105,7 @@ Because your project is now a structured, living semantic map, the impossible be
 - **Impact Simulation:** Because the map reasons about itself, you can simulate the exact blast radius of adding or removing a feature *before* writing a single line of code.
 - **Auto-Documentation:** Because UI, DB, and UX are structured, generating perfectly accurate, up-to-date technical documentation takes one click.
 - **Architectural Stress Testing:** Because the AI sees the entire system globally, you can extract high-level optimization suggestions and stress-test scenarios instantly.
+- **Semantic Versioning & Time Travel:** Because ContextDL enables flexible usage, you can track history using a simple `version:` tag or by creating a `context/v2.0/` directory. The LLM can instantly scan semantic version history and understand how the project evolved over time.
 
 ---
 
