@@ -348,7 +348,7 @@ New patterns → agent updates the relevant `.ctxdl` file → map stays current.
 
 No installation required.
 
-**`https://apidlai.com/contextdl/mcp`**
+**`https://apidlai.com/contextdl-mcp`**
 
 Claude Desktop (`claude_desktop_config.json`):
 ```json
@@ -356,7 +356,7 @@ Claude Desktop (`claude_desktop_config.json`):
   "mcpServers": {
     "contexdl": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl/mcp"]
+      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
     }
   }
 }
@@ -540,6 +540,6 @@ If it saved you from repeating yourself, gave your agent a project awareness it 
 
 *Your project's context belongs in your repo.*
 
-[☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl/mcp) · [AIDL](https://apidlai.com)
+[☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl-mcp) · [AIDL](https://apidlai.com)
 
 </div>

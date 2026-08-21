@@ -16,7 +16,7 @@
  *   - write_context_file   → Writes/updates a .ctxdl context file
  *   - list_context_files   → Lists all context files with sizes
  *
- * Hosted MCP (free):  https://apidlai.com/contextdl/mcp
+ * Hosted MCP (free):  https://apidlai.com/contextdl-mcp
  * GitHub:             https://github.com/ariferol01/contexdl
  * Sponsor:            https://github.com/sponsors/ariferol01
  */
@@ -47,7 +47,7 @@ const server = new Server(
       "awareness throughout. You also write .ctxdl files when new patterns emerge. " +
       "Start every session with read_live_context() and get_agent_contract(). " +
       "More: https://github.com/ariferol01/contexdl | " +
-      "Free hosted MCP: https://apidlai.com/contextdl/mcp",
+      "Free hosted MCP: https://apidlai.com/contextdl-mcp",
   }
 );
 
@@ -290,7 +290,7 @@ await server.connect(transport);
 console.error("🚀 ContextDL MCP Server v0.2.0");
 console.error();
 console.error("   GitHub  : https://github.com/ariferol01/contexdl");
-console.error("   Hosted  : https://apidlai.com/contextdl/mcp  (free)");
+console.error("   Hosted  : https://apidlai.com/contextdl-mcp  (free)");
 console.error("   Sponsor : https://github.com/sponsors/ariferol01");
 console.error();
 console.error(`   Context : ${CONTEXT_DIR}`);

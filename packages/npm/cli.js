@@ -328,7 +328,7 @@ Start every session by calling read_live_context() and get_agent_contract().
   info("Next steps:");
   dim("  1. Edit context/*.ctxdl files to match your actual project");
   dim("  2. Connect the MCP server:");
-  dim("       Hosted (free): https://apidlai.com/contextdl/mcp");
+  dim("       Hosted (free): https://apidlai.com/contextdl-mcp");
   dim("       Local Python:  python packages/python/server.py");
   dim("       Local Node:    npx @contexdl/mcp serve");
   dim("  3. Ask your agent: 'Load the project context and validate it'");
@@ -448,7 +448,7 @@ on.change(db.models) ->
   console.log();
   warn("These files are a starting point — review and refine them.");
   info("Run your agent and ask: 'Validate the project context'");
-  dim("  Hosted MCP (free): https://apidlai.com/contextdl/mcp");
+  dim("  Hosted MCP (free): https://apidlai.com/contextdl-mcp");
   console.log();
 
   // Stack summary
@@ -491,7 +491,7 @@ function showHelp() {
   dim("    npx @contexdl/mcp serve");
   console.log();
   dim("  GitHub:  https://github.com/ariferol01/contexdl");
-  dim("  Hosted:  https://apidlai.com/contextdl/mcp (free)");
+  dim("  Hosted:  https://apidlai.com/contextdl-mcp (free)");
   dim("  Sponsor: https://github.com/sponsors/ariferol01");
   console.log();
 }

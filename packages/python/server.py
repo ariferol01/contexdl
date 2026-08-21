@@ -11,7 +11,7 @@ Tools exposed:
   - list_context_files()    → Lists all context files with sizes
   - validate_context()      → Validates the project map using validate.ctxdl rules
 
-Hosted MCP (free):  https://apidlai.com/contextdl/mcp
+Hosted MCP (free):  https://apidlai.com/contextdl-mcp
 GitHub:             https://github.com/ariferol01/contexdl
 Sponsor:            https://github.com/sponsors/ariferol01
 
@@ -36,7 +36,7 @@ mcp = FastMCP(
         "You also write .ctxdl files — both when asked and when new patterns emerge. "
         "Start every session by calling read_live_context() and get_agent_contract(). "
         "More info: https://github.com/ariferol01/contexdl | "
-        "Free hosted MCP: https://apidlai.com/contextdl/mcp"
+        "Free hosted MCP: https://apidlai.com/contextdl-mcp"
     ),
 )
 
@@ -305,7 +305,7 @@ if __name__ == "__main__":
     print("🚀 ContextDL MCP Server v0.2.0")
     print()
     print("   GitHub  : https://github.com/ariferol01/contexdl")
-    print("   Hosted  : https://apidlai.com/contextdl/mcp  (free)")
+    print("   Hosted  : https://apidlai.com/contextdl-mcp  (free)")
     print("   Sponsor : https://github.com/sponsors/ariferol01")
     print()
     print(f"   Context : {CONTEXT_DIR}")

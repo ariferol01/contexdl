@@ -32,7 +32,7 @@
 ## [0.2.0] — 2026-08-21
 
 ### Added
-- Hosted MCP reference: `https://apidlai.com/contextdl/mcp`
+- Hosted MCP reference: `https://apidlai.com/contextdl-mcp`
 - Intent map hypothesis — concentrated context may improve LLM reasoning quality
 - Hypothetical token savings table (clearly marked as speculative)
 - `write_context_file()` and `list_context_files()` tools (Node.js server)
