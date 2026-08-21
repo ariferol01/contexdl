@@ -182,12 +182,16 @@ Before you code. Before you break anything.
 
 ## The map validates itself
 
-This is where it gets interesting.
+Your context files depend on each other.
 
-`validate.ctxdl` is a special file that checks consistency *across* your other context files — written in the same ContextDL syntax:
+If UX flows reference a component, that component should exist in `ui.ctxdl`. If a DB model changes, the UX flows that read it may need to be updated. If an endpoint is marked protected, a security rule should cover it.
+
+ContextDL can check these dependencies — before your agent acts on them.
+
+`validate.ctxdl` defines the rules. Written in the same syntax as everything else:
 
 ```text
-# Every component referenced in UX must exist in ui.ctxdl
+# If UX references a component, it must exist in ui.ctxdl
 each ux.flows.uses ->
     ? exists(ui.components[this])
     fail: "UX references '{this}' not defined in ui.ctxdl"
@@ -197,37 +201,52 @@ each db.endpoints.protected ->
     ? exists(security.rules[this])
     warn: "'{this}' is protected but no rule found in security.ctxdl"
 
-# Simulate impact of changes
+# Before a DB model changes — what else would be affected?
 on.change(db.models) ->
     check: ux.data.reads
     report: "DB model change — review UX flows and security rules"
 ```
 
-Run `validate_context()` via MCP and the agent checks whether your map is internally consistent — and tells you what a change would impact before you make it.
+The agent reads the full map, applies these rules, and reports:
+
+```
+✅ PASS   — ui.components covers all ux.flows references
+⚠️  WARN   — /api/orders is protected, security rule missing
+🔁 IMPACT — changing db.models affects: ux.ctxdl (data.reads), security.ctxdl (scoped rules)
+```
+
+This is not just validation. This is the map reasoning about itself.
+
+> *context → validation → dependency awareness → impact analysis*
 
 **ContextDL validates ContextDL. The map validates itself.**
 
 ---
 
-## Agents write the map too
+## You don't give your agent documentation. You give it a model.
 
-You don't write `.ctxdl` files alone.
+A `.ctxdl` file answers: *"What exists in this system?"*
 
-Ask your agent to generate them from your existing codebase:
+`validate.ctxdl` answers: *"Are these things consistent with each other?"*
+
+`on.change(...)` answers: *"If something changes, what else is affected?"*
+
+This is the difference. You're not writing docs that the agent reads. You're giving it a model of the system — and that model can reason about itself.
+
+Ask your agent to build this model from your existing codebase:
 
 ```text
 "Scan this project and create context files:
-  context/ui.ctxdl     → design system, component patterns
-  context/db.ctxdl     → data models, storage strategy
-  context/ux.ctxdl     → user flows, interactions
-  context/security.ctxdl → auth rules, constraints"
+  context/ui.ctxdl        → design system, component patterns
+  context/db.ctxdl        → data models, storage strategy
+  context/ux.ctxdl        → user flows, interactions
+  context/security.ctxdl  → auth rules, constraints
+  context/validate.ctxdl  → consistency rules between all of the above"
 ```
 
-As the project evolves, the agent writes new patterns back into the map.
+As the project evolves, the agent writes new patterns back into the map. The model grows. The reasoning improves.
 
-The shared understanding grows. Automatically.
-
-> **This is the new paradigm.** Not AI as a code generator. AI as a collaborator that reads and writes a shared semantic memory — versioned with your code, portable across every tool.
+> **This is the new paradigm.** Not AI as a code generator. AI as a collaborator that maintains a shared, self-aware model of your project — versioned in git, portable across every tool.
 
 ---
 
