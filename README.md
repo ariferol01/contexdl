@@ -126,22 +126,67 @@ The agent produces a compact, machine-readable understanding of code that may ha
 
 ## Token efficiency — a consequence, not the goal
 
-When you have a semantic map, token savings happen automatically:
+When you have a semantic map, token savings happen automatically.
 
-| What you'd write without ContextDL | With ContextDL |
-|---|---|
-| 300-token UI design system description | `ui.ctxdl` loaded once (~40 tokens) |
-| 200-token data model explanation | `db.ctxdl` loaded once (~30 tokens) |
-| 100-token payment flow description | `payment.ctxdl` loaded once (~15 tokens) |
-| Re-explaining all of this every session | Never |
+But there's a deeper hypothesis here.
 
-But the real value isn't the token count on any single session.
+### The intent map hypothesis
 
-It's the **cumulative elimination of repetition** across every session, every feature, every developer on the team, across the entire lifetime of the project.
+Large language models are typically given verbose, unstructured natural language as context. The hypothesis behind ContextDL is that **a structured, high-density intent map may be genuinely easier for an LLM to reason about** than an equivalent volume of prose.
 
-> ContextDL hasn't been independently benchmarked yet.  
-> We want real numbers from real projects.  
-> **Got data? Open a PR.**
+When you give an LLM a 500-token description of your UI system written in natural language, it has to:
+- Parse the prose
+- Extract the relevant facts
+- Resolve ambiguities in phrasing
+- Infer structure from unstructured text
+
+When you give it a `ui.ctxdl` file:
+```text
+theme: dark, accent=#6C63FF
+font: Inter, system-ui
+button.primary: accent-bg, white-text, rounded-md
+```
+
+The structure is already there. The intent is direct. There's nothing to infer.
+
+This may reduce hallucination, improve consistency, and make the model's job easier — not just cheaper.
+
+**This is a hypothesis. It has not been proven.**
+
+We believe it's worth testing experimentally. If you run comparisons — consistency scores, error rates, output quality — share the data.
+
+---
+
+### Hypothetical token savings — illustrative estimates
+
+> ⚠️ **These numbers are speculative.** They are rough estimates meant to illustrate the scale of potential savings, not measured benchmarks. Real savings depend on your project size, team size, session length, and LLM tokenizer.
+
+#### Per-session savings (single developer, medium project)
+
+| Context loaded without ContextDL | Estimated tokens | With ContextDL (`.ctxdl` files) | Estimated tokens |
+|---|---|---|---|
+| UI design system description | ~250–400 | `ui.ctxdl` | ~30–60 |
+| Data model explanation | ~150–300 | `db.ctxdl` | ~25–50 |
+| UX flow description | ~100–200 | `ux.ctxdl` | ~20–40 |
+| Security rules | ~80–150 | `security.ctxdl` | ~15–30 |
+| **Total per session** | **~580–1050** | | **~90–180** |
+| **Estimated savings per session** | | | **~75–85%** |
+
+#### Cumulative savings (hypothetical, illustrative only)
+
+| Scenario | Sessions/month | Est. tokens saved/session | Est. monthly savings |
+|---|---|---|---|
+| Solo developer | 60 | ~600 | ~36,000 tokens |
+| 3-person team | 180 | ~600 | ~108,000 tokens |
+| 10-person team | 600 | ~600 | ~360,000 tokens |
+
+At GPT-4 pricing (~$0.01/1K input tokens), a 10-person team could hypothetically save ~$3.60/month in raw input costs — modest in isolation, but multiplied across a project's lifetime and combined with reduced hallucination and better consistency, potentially meaningful.
+
+> **None of this has been measured. We made no claims. We ran no benchmarks.**
+>
+> If you test ContextDL against a baseline and share real numbers — token counts, latency, consistency scores, output quality ratings — **that's one of the most valuable contributions this project can receive.**
+>
+> **[Open a PR with your benchmark data →](https://github.com/ariferol01/contexdl/pulls)**
 
 ---
 
