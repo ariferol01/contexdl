@@ -569,23 +569,25 @@ If it saved you from repeating yourself, gave your agent a project awareness it 
 
 ---
 
-### 💳 GitHub Sponsors — card or PayPal
+### 🪙 Crypto (Preferred)
+
+Because it's fast, decentralized, and avoids platform fees, crypto is the preferred way to support this project.
+
+| Network | Address | Scan |
+|---|---|---|
+| **SOL** | `Dvo8FScbFwJZ4gvPoBnfsNp1yAtAtvHVTwtJz2uqqFw7` | <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Dvo8FScbFwJZ4gvPoBnfsNp1yAtAtvHVTwtJz2uqqFw7" width="80" height="80" /> |
+| **BNB / ETH** | `0xd948866cCe0BcA79fEAF90C25D77dfBb6Db1F435` | <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0xd948866cCe0BcA79fEAF90C25D77dfBb6Db1F435" width="80" height="80" /> |
+| **BTC** | `bc1qqdwqt25k3wex0ysh3a594l64nhq7h0f0kyj8dr` | <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bc1qqdwqt25k3wex0ysh3a594l64nhq7h0f0kyj8dr" width="80" height="80" /> |
+
+---
+
+### 💳 GitHub Sponsors (Card or PayPal)
 
 <div align="center">
 
 **[☕ Sponsor on GitHub](https://github.com/sponsors/ariferol01)**
 
 </div>
-
----
-
-### 🪙 Crypto
-
-| Network | Address |
-|---|---|
-| **SOL** | `Dvo8FScbFwJZ4gvPoBnfsNp1yAtAtvHVTwtJz2uqqFw7` |
-| **BNB / ETH** | `0xd948866cCe0BcA79fEAF90C25D77dfBb6Db1F435` |
-| **BTC** | `bc1qqdwqt25k3wex0ysh3a594l64nhq7h0f0kyj8dr` |
 
 ---
 
