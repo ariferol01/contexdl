@@ -39,8 +39,17 @@
 **1. Connect your AI Agent to the MCP server**
 
 *Option A: Use the free hosted endpoint (No local installation)*
-Point your editor's MCP configuration (Cursor, Claude, Windsurf, etc.) to:
-`https://apidlai.com/contextdl-mcp`
+Add this to your editor's MCP configuration (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "contexdl": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
+    }
+  }
+}
+```
 
 *Option B: Run a local MCP server*
 ```bash
