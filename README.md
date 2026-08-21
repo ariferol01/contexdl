@@ -76,6 +76,19 @@ ContextDL gives your project a **living semantic map** — a set of compact, hum
 └── payment.ctxdl   ← payment flows, states, error handling
 ```
 
+**What does it look like?** It's just structured semantics. For example, your `ui.ctxdl` might look like this:
+
+```yaml
+ui:
+  colors:
+    primary: "#6366f1"
+    danger: "#ef4444"
+  components:
+    Button: 
+      variants: [primary, outline, ghost]
+      border-radius: 8px
+```
+
 An AI agent reads these files at the start of every session. In one pass. With minimal tokens. And it knows everything.
 
 No re-explaining. No drift. No wrong font.
@@ -140,6 +153,122 @@ If you know `if`, `else`, `each` — you already know ContextDL.
 Everything else is just project design thinking. And that's yours.
 
 > *"If you've written code for years, you already know ContextDL. You just didn't have a name for it."*
+
+---
+
+## Complete workflow
+
+### Step 1 — Create the map (or let the agent generate it)
+
+```
+your-project/
+└── context/
+    ├── ui.ctxdl
+    ├── ux.ctxdl
+    ├── db.ctxdl
+    ├── security.ctxdl
+    └── validate.ctxdl   ← optional: the map that validates the map
+```
+
+### Step 2 — Connect the MCP server
+
+### Step 3 — Agent loads everything in one call
+
+```
+read_live_context()  → full project map, one pass
+get_agent_contract() → behavior rules
+validate_context()   → consistency check + impact simulation
+```
+
+### Step 4 — Express intent
+
+```text
+user.signup:
+    validate: email.format, password.strength
+    if valid -> db.create -> email.verify -> redirect(/dashboard)
+    if invalid -> alert.field-errors
+```
+
+### Step 5 — Consistent implementation, every time
+
+Design system followed. Data model respected. UX rules applied. Automatically.
+
+### Step 6 — Map grows with the project
+
+New patterns → agent updates the relevant `.ctxdl` file → map stays current.
+
+---
+
+## Connect your AI agent
+
+### 🌐 Option 1 — Hosted MCP (recommended, free)
+
+No installation required.
+
+**`https://apidlai.com/contextdl-mcp`**
+
+Claude Desktop (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "contexdl": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
+    }
+  }
+}
+```
+
+---
+
+### 🐍 Option 2 — Local Python
+
+```bash
+pip install contexdl
+contexdl serve
+```
+
+Or from source:
+```bash
+git clone https://github.com/ariferol01/contexdl.git
+cd contexdl
+pip install -r requirements.txt
+python packages/python/server.py
+```
+
+Claude Desktop config:
+```json
+{
+  "mcpServers": {
+    "contexdl": {
+      "command": "python",
+      "args": ["/path/to/contexdl/packages/python/server.py"]
+    }
+  }
+}
+```
+
+---
+
+### 📦 Option 3 — Local npm
+
+```bash
+npx @contexdl/mcp
+```
+
+Cursor / Windsurf / VS Code:
+```json
+{
+  "mcp": {
+    "servers": {
+      "contexdl": {
+        "command": "npx",
+        "args": ["@contexdl/mcp"]
+      }
+    }
+  }
+}
+```
 
 ---
 
@@ -359,122 +488,6 @@ The real value isn't one session. It's the cumulative elimination of repetition 
 
 ---
 
-## Complete workflow
-
-### Step 1 — Create the map (or let the agent generate it)
-
-```
-your-project/
-└── context/
-    ├── ui.ctxdl
-    ├── ux.ctxdl
-    ├── db.ctxdl
-    ├── security.ctxdl
-    └── validate.ctxdl   ← optional: the map that validates the map
-```
-
-### Step 2 — Connect the MCP server
-
-### Step 3 — Agent loads everything in one call
-
-```
-read_live_context()  → full project map, one pass
-get_agent_contract() → behavior rules
-validate_context()   → consistency check + impact simulation
-```
-
-### Step 4 — Express intent
-
-```text
-user.signup:
-    validate: email.format, password.strength
-    if valid -> db.create -> email.verify -> redirect(/dashboard)
-    if invalid -> alert.field-errors
-```
-
-### Step 5 — Consistent implementation, every time
-
-Design system followed. Data model respected. UX rules applied. Automatically.
-
-### Step 6 — Map grows with the project
-
-New patterns → agent updates the relevant `.ctxdl` file → map stays current.
-
----
-
-## Connect your AI agent
-
-### 🌐 Option 1 — Hosted MCP (recommended, free)
-
-No installation required.
-
-**`https://apidlai.com/contextdl-mcp`**
-
-Claude Desktop (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://apidlai.com/contextdl-mcp"]
-    }
-  }
-}
-```
-
----
-
-### 🐍 Option 2 — Local Python
-
-```bash
-pip install contexdl
-contexdl serve
-```
-
-Or from source:
-```bash
-git clone https://github.com/ariferol01/contexdl.git
-cd contexdl
-pip install -r requirements.txt
-python packages/python/server.py
-```
-
-Claude Desktop config:
-```json
-{
-  "mcpServers": {
-    "contexdl": {
-      "command": "python",
-      "args": ["/path/to/contexdl/packages/python/server.py"]
-    }
-  }
-}
-```
-
----
-
-### 📦 Option 3 — Local npm
-
-```bash
-npx @contexdl/mcp
-```
-
-Cursor / Windsurf / VS Code:
-```json
-{
-  "mcp": {
-    "servers": {
-      "contexdl": {
-        "command": "npx",
-        "args": ["@contexdl/mcp"]
-      }
-    }
-  }
-}
-```
-
----
-
 ## The new paradigm
 
 ```
@@ -539,27 +552,6 @@ One map. Every tool. Every session. Every developer.
 
 ---
 
-## Contributing
-
-### What you can do today
-- **Try it** — run `npx @contexdl/mcp generate` on a real project, report what worked and what didn't
-- **Share benchmarks** — token counts, consistency scores, output quality compared to verbose prompts
-- **Add examples** — domain-specific `.ctxdl` patterns for e-commerce, DevOps, SaaS, data pipelines
-- **Improve `generate`** — the CLI detects Next.js, Prisma, Tailwind. Add support for your stack
-- **Open issues, open PRs, break things**
-
-### Community challenges — looking for contributors
-
-🎯 **VS Code / Cursor syntax highlighting** — `.ctxdl` files have no highlighting yet. A TextMate grammar that highlights `if`, `each`, `->`, `fail:`, `warn:`, `on.change()` would be a massive DX improvement. [Claim this →](https://github.com/ariferol01/contexdl/issues)
-
-📊 **Real benchmark data** — the README has hypothetical numbers. Replace them with real ones. Run the same task as a verbose prompt and as a ContextDL intent, measure tokens + output quality, share the table.
-
-🔌 **Stack-specific `generate` support** — Django models, Rails routes, Laravel structure, GraphQL schemas, OpenAPI specs — if you work in these stacks, you know what to extract.
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
----
-
 ## ☕ Support the experiment
 
 ContextDL is an independent open-source project — a minimal idea that took months of thinking, testing, and iteration to take shape. It lives entirely on community support.
@@ -603,3 +595,26 @@ If it saved you from repeating yourself, gave your agent a project awareness it 
 [☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl-mcp) · [apidl](https://apidlai.com)
 
 </div>
+
+---
+
+## Contributing
+
+### What you can do today
+- **Try it** — run `npx @contexdl/mcp generate` on a real project, report what worked and what didn't
+- **Share benchmarks** — token counts, consistency scores, output quality compared to verbose prompts
+- **Add examples** — domain-specific `.ctxdl` patterns for e-commerce, DevOps, SaaS, data pipelines
+- **Improve `generate`** — the CLI detects Next.js, Prisma, Tailwind. Add support for your stack
+- **Open issues, open PRs, break things**
+
+### Community challenges — looking for contributors
+
+🎯 **VS Code / Cursor syntax highlighting** — `.ctxdl` files have no highlighting yet. A TextMate grammar that highlights `if`, `each`, `->`, `fail:`, `warn:`, `on.change()` would be a massive DX improvement. [Claim this →](https://github.com/ariferol01/contexdl/issues)
+
+📊 **Real benchmark data** — the README has hypothetical numbers. Replace them with real ones. Run the same task as a verbose prompt and as a ContextDL intent, measure tokens + output quality, share the table.
+
+🔌 **Stack-specific `generate` support** — Django models, Rails routes, Laravel structure, GraphQL schemas, OpenAPI specs — if you work in these stacks, you know what to extract.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+
+---
