@@ -71,6 +71,23 @@ user.login:
     if fail -> ui.alert.error("Invalid credentials")
 ```
 
+OR (same intent, natural language style):
+
+```text
+when user logs in, validate email and password.
+if valid, create db session and redirect to dashboard.
+if invalid, show an error alert.
+```
+
+OR (same intent, OOP style):
+
+```text
+User::Login()
+  ->Validate(email, password)
+  ->OnSuccess( DB::Session::Create(), Redirect(/dashboard) )
+  ->OnFail( UI::Alert::Error("Invalid credentials") );
+```
+
 > **Wait, what is this syntax?** 
 > *Syntax doesn't matter.* Write it in whatever language you are already familiar with (Python, JS, YAML) or just use natural language flow. The AI agent will understand it perfectly. The rest of this document explains the deep philosophy behind this.
 
