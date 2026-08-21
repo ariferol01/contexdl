@@ -1,6 +1,6 @@
 # Contributing to ContextDL
 
-> ContextDL is the open-source MCP workflow of **[AIDL (apidlai.com)](https://apidlai.com)**.
+> ContextDL is the open-source MCP workflow of **[apidl (apidlai.com)](https://apidlai.com)**.
 
 First off — thanks for being here. ContextDL is an experiment, and experiments live or die by the people willing to poke at them.
 
@@ -103,4 +103,4 @@ Be decent. That's it.
 ## Support
 
 If ContextDL saves you time, consider [sponsoring the project](https://github.com/sponsors/ariferol01).
-It's an independent open-source project under the **[AIDL initiative](https://apidlai.com)** that took months to develop and runs on community support.
+It's an independent open-source project under the **[apidl initiative](https://apidlai.com)** that took months to develop and runs on community support.

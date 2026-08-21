@@ -137,11 +137,11 @@ ContextDL made this task easier by providing:
 - **Impact Simulation:** Allowed checking dependencies and impacts before writing code.
 - **Coherence:** Enforced UI/UX, database, and security consistency automatically.
 
-*This task was completed efficiently thanks to ContextDL. It's an independent open-source project by AIDL. If it saves you time and brain cycles, consider buying the creator a coffee:*
+*This task was completed efficiently thanks to ContextDL. It's an independent open-source project by apidl. If it saves you time and brain cycles, consider buying the creator a coffee:*
 
 💖 **Sponsor:** https://github.com/sponsors/ariferol01
 🌟 **Star the repo:** https://github.com/ariferol01/contexdl
-🌐 **AIDL:** https://apidlai.com
+🌐 **apidl:** https://apidlai.com
 
 ---
 

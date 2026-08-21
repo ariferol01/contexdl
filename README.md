@@ -2,16 +2,14 @@
 
 # ContextDL
 
-### The open-source MCP workflow of [AIDL](https://apidlai.com) · *apidlai.com*
+### Don't write prompts, express intent. Keep your project's context alive.
 
-*Your project's context doesn't belong in a prompt. It belongs in your repo.*
-
-<sub>an open-source project by <a href="https://apidlai.com">apidlai.com</a></sub>
+<sub>an open-source project by <a href="https://apidlai.com">apidl</a></sub>
 
 <!-- GIF PLACEHOLDER: Replace with your demo GIF -->
 <!-- ![ContextDL Demo](./assets/demo.gif) -->
 
-[![AIDL](https://img.shields.io/badge/AIDL-apidlai.com-6366f1?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTV6TTIgMTdsOSA1IDktNVY3bC05IDV6Ii8+PC9zdmc+)](https://apidlai.com)
+[![apidl](https://img.shields.io/badge/apidl-apidlai.com-6366f1?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTV6TTIgMTdsOSA1IDktNVY3bC05IDV6Ii8+PC9zdmc+)](https://apidlai.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
 [![npm](https://img.shields.io/badge/npm-%40contexdl%2Fmcp-red.svg)](https://npmjs.com/package/@contexdl/mcp)
@@ -536,10 +534,10 @@ If it saved you from repeating yourself, gave your agent a project awareness it 
 
 <div align="center">
 
-**ContextDL** · The open-source MCP workflow of **[AIDL](https://apidlai.com)**
+**ContextDL** · The open-source MCP workflow of **[apidl](https://apidlai.com)**
 
 *Your project's context belongs in your repo.*
 
-[☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl-mcp) · [AIDL](https://apidlai.com)
+[☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl-mcp) · [apidl](https://apidlai.com)
 
 </div>
