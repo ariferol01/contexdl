@@ -49,6 +49,21 @@ It gives your AI agent **a map**.
 
 When the agent loads these files at the start of a session, it sees the entire architecture of your project — in a single pass, with minimal tokens. Not just what you said today. What your project *is*.
 
+### Concentrated context — faster, wider, more accurate analysis
+
+There's an important difference between giving an LLM **a lot of context** and giving it **the right context**.
+
+Verbose prose descriptions are large, loosely structured, and full of filler. An LLM has to read through all of it to extract the facts that matter.
+
+A semantic map is compact, structured, and dense with meaning. The LLM can scan the entire project shape in a fraction of the tokens — and reason about it more directly, with less noise.
+
+This means:
+- **Wider scope per session** — more of your project fits in the context window
+- **Faster analysis** — less parsing, more reasoning
+- **Easier to update** — change one line in `ui.ctxdl` and the entire project context is updated. No rewriting documentation. No re-explaining anything.
+
+A `ui.ctxdl` update takes seconds. The equivalent change in prose documentation might take hours — and might still be misunderstood.
+
 ### What changes when the agent has a map
 
 **Without a map (today):**
@@ -214,33 +229,54 @@ As the project evolves, the agent updates the map. The shared understanding grow
 
 ---
 
-## No fixed syntax — use whatever feels natural
+## Write in whatever syntax you already know
 
-ContextDL doesn't force you into a new language.
+This is important: **ContextDL has no official syntax.**
 
-**Dot notation:**
-```text
-payment.completed.fail.retry3.notify.support
+You write in the style that feels natural to *you* — the language you already think in. A PHP developer writes PHP-like expressions. A Python developer writes Python-like flows. A product manager writes plain English. All of it is valid ContextDL.
+
+The syntax is not the point. The intent is.
+
+---
+
+**PHP developer:**
+```php
+Payment::Completed::Fail::Retry(3)::NotifySupport;
 ```
 
-**Conditional flow:**
+**JavaScript / Python developer:**
+```text
+payment.completed.fail.retry(3).notify.support
+```
+
+**Ruby / method-chain style:**
+```text
+payment.completed.fail.retry(3).notify(:support)
+```
+
+**Conditional / flow style:**
 ```text
 todo.add:
     if input.empty -> alert.error("Task cannot be empty")
     else -> db.save -> ui.list.append
 ```
 
-**Natural language:**
+**Plain natural language:**
 ```text
 when a user cancels an order, release reserved inventory and notify the warehouse
 ```
 
-**PHP-like:**
-```php
-Payment::Completed::Fail::Retry(3)::NotifySupport;
+**Terse dot notation:**
+```text
+payment.completed.fail.retry3.notify.support
 ```
 
-All of these describe the same intent. ContextDL normalizes them. Your agent acts on them.
+All of these describe the same intent. ContextDL doesn't care which one you use.
+
+Your agent normalizes them against the project map and renders the implementation.
+
+> If you've been writing code for years in a specific language, you already know how to write ContextDL.
+> You just didn't have a name for it.
 
 ---
 
