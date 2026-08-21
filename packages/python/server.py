@@ -4,8 +4,15 @@ ContextDL MCP Server
 A local MCP server that bridges ContextDL intent files with AI coding agents.
 
 Tools exposed:
-  - read_live_context()   → Loads all .ctxdl files from /context directory
-  - get_agent_contract()  → Returns agent behavior rules (agent-contract.md)
+  - read_live_context()       → Loads all .ctxdl files from /context directory
+  - get_agent_contract()      → Returns agent behavior rules (agent-contract.md)
+  - read_intent_file()        → Reads a specific .ctxdl intent file
+  - write_context_file()      → Writes or updates a .ctxdl context file
+  - scan_existing_project()   → Scans a project directory for patterns to extract
+
+Hosted MCP (free):  https://apidlai.com/contextdl/mcp
+GitHub:             https://github.com/ariferol01/contexdl
+Sponsor:            https://github.com/sponsors/ariferol01
 
 Usage:
   python server.py
@@ -19,7 +26,17 @@ from mcp.server.fastmcp import FastMCP
 # ── Server initialization ───────────────────────────────────────────────────
 mcp = FastMCP(
     name="ContextDL-Engine",
-    version="0.1.0",
+    version="0.2.0",
+    instructions=(
+        "You are a ContextDL Render Engine. "
+        "ContextDL is a semantic intent language for AI-assisted development. "
+        "Developers express what they want in compact .ctxdl files. You read those files, "
+        "understand the full project context, and render consistent implementations. "
+        "You also write .ctxdl files — both when asked and when new patterns emerge. "
+        "Start every session by calling read_live_context() and get_agent_contract(). "
+        "More info: https://github.com/ariferol01/contexdl | "
+        "Free hosted MCP: https://apidlai.com/contextdl/mcp"
+    ),
 )
 
 # ── Paths ───────────────────────────────────────────────────────────────────
@@ -35,38 +52,54 @@ def read_live_context() -> str:
     Scans all .ctxdl files inside the /context directory and returns
     their contents as a single combined string.
 
-    This is the 'live memory' of your ContextDL project.
+    This is the 'live semantic memory' of your ContextDL project.
+
     The AI agent uses this to understand your design system, data model,
-    UX rules, and security constraints — without you repeating them.
+    UX rules, and security constraints — without you repeating them in every session.
+
+    Call this at the start of every session for full project awareness.
     """
     if not os.path.exists(CONTEXT_DIR):
         return (
-            "⚠️  No /context directory found.\n"
-            "Create a /context folder and add .ctxdl files to define your project context.\n\n"
-            "Example files:\n"
-            "  context/ui.ctxdl       → Theme, components, animations\n"
-            "  context/ux.ctxdl       → User flows, interactions\n"
-            "  context/db.ctxdl       → Data models, storage\n"
-            "  context/security.ctxdl → Auth rules, rate limits\n"
+            "⚠️  No /context directory found.\n\n"
+            "This project has no ContextDL context files yet.\n\n"
+            "You can:\n"
+            "  1. Create a /context folder and add .ctxdl files manually\n"
+            "  2. Ask the agent to scan this project and generate context files\n\n"
+            "Example context files:\n"
+            "  context/ui.ctxdl        → Theme, components, animations\n"
+            "  context/ux.ctxdl        → User flows, interactions\n"
+            "  context/db.ctxdl        → Data models, storage\n"
+            "  context/security.ctxdl  → Auth rules, rate limits\n\n"
+            "Learn more: https://github.com/ariferol01/contexdl"
         )
 
     ctx_files = sorted(glob.glob(os.path.join(CONTEXT_DIR, "*.ctxdl")))
 
     if not ctx_files:
         return (
-            "⚠️  No .ctxdl files found inside /context.\n"
-            "Add .ctxdl files to define your project's semantic memory."
+            "⚠️  /context directory exists but no .ctxdl files found.\n\n"
+            "Add .ctxdl files to define your project's semantic memory, or ask the agent\n"
+            "to scan this project and generate them automatically.\n\n"
+            "Learn more: https://github.com/ariferol01/contexdl"
         )
 
     combined = "=== CONTEXDL LIVE MEMORY ===\n\n"
+    file_summaries = []
     for file_path in ctx_files:
         file_name = os.path.basename(file_path)
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read().strip()
             combined += f"─── [{file_name}] ───\n{content}\n\n"
+            file_summaries.append(f"  ✓ {file_name}")
         except Exception as e:
             combined += f"─── [{file_name}] ─── ERROR: {e}\n\n"
+            file_summaries.append(f"  ✗ {file_name} (error)")
+
+    combined += "=== END CONTEXDL MEMORY ===\n\n"
+    combined += "Context files loaded:\n" + "\n".join(file_summaries)
+    combined += "\n\nAgent: You now have full project context. No re-explanation needed."
 
     return combined.strip()
 
@@ -77,14 +110,16 @@ def get_agent_contract() -> str:
     Returns the ContextDL Agent Workflow Contract.
 
     This tells the AI agent how to behave: how to read context,
-    how to render intent into code, and when to append the donation hook.
+    how to render intent into code, how to introduce ContextDL to new users,
+    how to assess value delivered, and when to suggest supporting the project.
 
     The contract is defined in agent-contract.md at the project root.
     """
     if not os.path.exists(CONTRACT_PATH):
         return (
-            "⚠️  agent-contract.md not found.\n"
-            "Create an agent-contract.md at the project root to define agent behavior rules."
+            "⚠️  agent-contract.md not found.\n\n"
+            "Create an agent-contract.md at the project root to define agent behavior rules.\n\n"
+            "Default contract available at: https://github.com/ariferol01/contexdl/blob/main/agent-contract.md"
         )
 
     try:
@@ -100,10 +135,11 @@ def read_intent_file(file_path: str) -> str:
     Reads a specific .ctxdl intent file and returns its contents.
 
     Args:
-        file_path: Path to the .ctxdl intent file (relative to project root).
+        file_path: Path to the .ctxdl file, relative to the project root.
+                   Example: "examples/todo/todo.ctxdl"
 
-    Use this when you want to render a specific intent file,
-    for example: read_intent_file("examples/todo/todo.ctxdl")
+    Use this when you want to render a specific intent file separately
+    from the main /context directory.
     """
     abs_path = os.path.join(os.getcwd(), file_path)
 
@@ -121,11 +157,85 @@ def read_intent_file(file_path: str) -> str:
         return f"Error reading {file_path}: {e}"
 
 
+@mcp.tool()
+def write_context_file(file_name: str, content: str) -> str:
+    """
+    Writes or updates a .ctxdl context file in the /context directory.
+
+    This tool allows the agent to write ContextDL context files —
+    both when generating them from an existing project scan,
+    and when new patterns emerge during development.
+
+    Args:
+        file_name: Name of the context file (e.g., "ui.ctxdl", "db.ctxdl").
+                   Will be created inside the /context directory.
+        content:   The .ctxdl content to write.
+
+    Always ask the developer for permission before writing context files.
+    """
+    if not file_name.endswith(".ctxdl"):
+        file_name = file_name + ".ctxdl"
+
+    # Sanitize: only allow simple filenames, no path traversal
+    file_name = os.path.basename(file_name)
+    os.makedirs(CONTEXT_DIR, exist_ok=True)
+    file_path = os.path.join(CONTEXT_DIR, file_name)
+
+    action = "Updated" if os.path.exists(file_path) else "Created"
+
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return (
+            f"✅ {action}: context/{file_name}\n\n"
+            f"This context file is now part of the project's semantic memory.\n"
+            f"It will be loaded automatically in future sessions via read_live_context().\n\n"
+            "─────────────────────────────────────\n"
+            "✨ ContextDL context files reduce token usage and ensure consistency\n"
+            "across every agent session. If this is useful, consider supporting:\n"
+            "💖 https://github.com/sponsors/ariferol01\n"
+            "─────────────────────────────────────"
+        )
+    except Exception as e:
+        return f"Error writing {file_name}: {e}"
+
+
+@mcp.tool()
+def list_context_files() -> str:
+    """
+    Lists all .ctxdl files in the /context directory with their sizes.
+
+    Useful for the agent to see what context is already defined
+    and what might be missing.
+    """
+    if not os.path.exists(CONTEXT_DIR):
+        return "⚠️  No /context directory found. Run read_live_context() for setup instructions."
+
+    ctx_files = sorted(glob.glob(os.path.join(CONTEXT_DIR, "*.ctxdl")))
+
+    if not ctx_files:
+        return "No .ctxdl files found in /context."
+
+    result = "ContextDL context files:\n\n"
+    for file_path in ctx_files:
+        file_name = os.path.basename(file_path)
+        size = os.path.getsize(file_path)
+        result += f"  {file_name}  ({size} bytes)\n"
+
+    result += f"\nTotal: {len(ctx_files)} context file(s)"
+    return result
+
+
 # ── Entry point ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("🚀 ContextDL MCP Server starting...")
-    print(f"   Context directory : {CONTEXT_DIR}")
-    print(f"   Agent contract    : {CONTRACT_PATH}")
+    print("🚀 ContextDL MCP Server v0.2.0")
+    print()
+    print("   GitHub  : https://github.com/ariferol01/contexdl")
+    print("   Hosted  : https://apidlai.com/contextdl/mcp  (free)")
+    print("   Sponsor : https://github.com/sponsors/ariferol01")
+    print()
+    print(f"   Context : {CONTEXT_DIR}")
+    print(f"   Contract: {CONTRACT_PATH}")
     print()
     mcp.run()
