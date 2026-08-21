@@ -632,7 +632,7 @@ Because it's fast, decentralized, and avoids platform fees, crypto is the prefer
 ## Contributing
 
 ### What you can do today
-- **Try it** — run `npx @contexdl/mcp generate` on a real project, report what worked and what didn't
+- **Try it** — run `npx -y -p @contexdl/mcp contexdl generate` on a real project, report what worked and what didn't
 - **Share benchmarks** — token counts, consistency scores, output quality compared to verbose prompts
 - **Add examples** — domain-specific `.ctxdl` patterns for e-commerce, DevOps, SaaS, data pipelines
 - **Improve `generate`** — the CLI detects Next.js, Prisma, Tailwind. Add support for your stack
