@@ -498,19 +498,27 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ContextDL is an independent open-source project — a minimal idea that took months of thinking, testing, and iteration to take shape. It lives entirely on community support.
 
-If it saved you from repeating yourself, gave your agent a project awareness it didn't have before, or just made you think differently about how AI tools and codebases relate to each other — a small contribution means a lot:
+If it saved you from repeating yourself, gave your agent a project awareness it didn't have before, or just made you think differently about how AI tools and codebases relate — a small contribution means a lot.
+
+---
+
+### 💳 GitHub Sponsors — card or PayPal
 
 <div align="center">
 
-**[☕ GitHub Sponsors — Buy Me a Coffee](https://github.com/sponsors/ariferol01)**
+**[☕ Sponsor on GitHub](https://github.com/sponsors/ariferol01)**
 
 </div>
 
+---
+
+### 🪙 Crypto
+
 | Network | Address |
 |---|---|
-| SOL | `Dvo8FScbFwJZ4gvPoBnfsNp1yAtAtvHVTwtJz2uqqFw7` |
-| BNB / ETH | `0xd948866cCe0BcA79fEAF90C25D77dfBb6Db1F435` |
-| BTC | `bc1qqdwqt25k3wex0ysh3a594l64nhq7h0f0kyj8dr` |
+| **SOL** | `Dvo8FScbFwJZ4gvPoBnfsNp1yAtAtvHVTwtJz2uqqFw7` |
+| **BNB / ETH** | `0xd948866cCe0BcA79fEAF90C25D77dfBb6Db1F435` |
+| **BTC** | `bc1qqdwqt25k3wex0ysh3a594l64nhq7h0f0kyj8dr` |
 
 ---
 
