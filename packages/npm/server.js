@@ -37,7 +37,7 @@ const CONTRACT_PATH = path.join(CWD, "agent-contract.md");
 
 // ── Server setup ───────────────────────────────────────────────────────────
 const server = new Server(
-  { name: "ContextDL-Engine", version: "0.3.3" },
+  { name: "ContextDL-Engine", version: "0.3.4" },
   {
     capabilities: { tools: {} },
     instructions:
@@ -287,7 +287,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 const transport = new StdioServerTransport();
 await server.connect(transport);
 
-console.error("🚀 ContextDL MCP Server v0.3.3");
+console.error("🚀 ContextDL MCP Server v0.3.4");
 console.error();
 console.error("   GitHub  : https://github.com/ariferol01/contexdl");
 console.error("   Sponsor : https://github.com/sponsors/ariferol01");
