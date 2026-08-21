@@ -4,11 +4,12 @@ ContextDL MCP Server
 A local MCP server that bridges ContextDL intent files with AI coding agents.
 
 Tools exposed:
-  - read_live_context()       → Loads all .ctxdl files from /context directory
-  - get_agent_contract()      → Returns agent behavior rules (agent-contract.md)
-  - read_intent_file()        → Reads a specific .ctxdl intent file
-  - write_context_file()      → Writes or updates a .ctxdl context file
-  - scan_existing_project()   → Scans a project directory for patterns to extract
+  - read_live_context()     → Loads all .ctxdl files (the project map)
+  - get_agent_contract()    → Returns agent behavior rules (agent-contract.md)
+  - read_intent_file()      → Reads a specific .ctxdl intent file
+  - write_context_file()    → Writes or updates a .ctxdl context file
+  - list_context_files()    → Lists all context files with sizes
+  - validate_context()      → Validates the project map using validate.ctxdl rules
 
 Hosted MCP (free):  https://apidlai.com/contextdl/mcp
 GitHub:             https://github.com/ariferol01/contexdl
@@ -224,6 +225,78 @@ def list_context_files() -> str:
 
     result += f"\nTotal: {len(ctx_files)} context file(s)"
     return result
+
+
+@mcp.tool()
+def validate_context() -> str:
+    """
+    Validates the project's context map for internal consistency.
+
+    Reads context/validate.ctxdl (the validation rules) and all other .ctxdl files,
+    then instructs the agent to check cross-file consistency:
+    - Do UX flows reference components that exist in ui.ctxdl?
+    - Do DB models referenced in UX exist in db.ctxdl?
+    - Are protected endpoints covered by security rules?
+    - What will be affected if a context file changes? (impact simulation)
+
+    ContextDL validates ContextDL — the map validates itself.
+
+    If context/validate.ctxdl doesn't exist, a starter file will be suggested.
+    """
+    VALIDATE_PATH = os.path.join(CONTEXT_DIR, "validate.ctxdl")
+
+    if not os.path.exists(CONTEXT_DIR):
+        return "⚠️  No /context directory found. Cannot validate."
+
+    ctx_files = sorted(glob.glob(os.path.join(CONTEXT_DIR, "*.ctxdl")))
+    if not ctx_files:
+        return "⚠️  No .ctxdl files found in /context. Nothing to validate."
+
+    # Load validation rules
+    if not os.path.exists(VALIDATE_PATH):
+        return (
+            "⚠️  context/validate.ctxdl not found.\n\n"
+            "This file defines cross-file consistency rules for your project map.\n"
+            "Download the starter: https://github.com/ariferol01/contexdl/blob/main/context/validate.ctxdl\n\n"
+            "Or ask the agent to generate validation rules based on your existing context files."
+        )
+
+    try:
+        with open(VALIDATE_PATH, "r", encoding="utf-8") as f:
+            validation_rules = f.read().strip()
+    except Exception as e:
+        return f"Error reading validate.ctxdl: {e}"
+
+    # Load all other context files
+    map_content = "=== CONTEXDL PROJECT MAP (for validation) ===\n\n"
+    for file_path in ctx_files:
+        file_name = os.path.basename(file_path)
+        if file_name == "validate.ctxdl":
+            continue
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+            map_content += f"─── [{file_name}] ───\n{content}\n\n"
+        except Exception as e:
+            map_content += f"─── [{file_name}] ─── ERROR: {e}\n\n"
+
+    return (
+        f"{map_content}\n"
+        f"=== VALIDATION RULES (validate.ctxdl) ===\n\n"
+        f"{validation_rules}\n\n"
+        f"=== AGENT INSTRUCTION ===\n\n"
+        f"Apply the validation rules above to the project map.\n"
+        f"For each rule:\n"
+        f"  - Check if the condition holds across the context files\n"
+        f"  - Report FAIL items as blocking issues\n"
+        f"  - Report WARN items as non-blocking recommendations\n"
+        f"  - For on.change() rules, simulate which files would be affected by each change\n\n"
+        f"Present results as:\n"
+        f"  ✅ PASS   — rule satisfied\n"
+        f"  ⚠️  WARN   — non-blocking issue\n"
+        f"  ❌ FAIL   — must be resolved\n"
+        f"  🔁 IMPACT — simulated change impact\n"
+    )
 
 
 # ── Entry point ─────────────────────────────────────────────────────────────

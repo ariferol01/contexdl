@@ -1,0 +1,67 @@
+# ContextDL Self-Validation Map
+# ================================
+# This file validates that your project's context map is internally consistent.
+# It is itself written in ContextDL — the map validates the map.
+#
+# How it works:
+#   The MCP server calls validate_context(), which passes all .ctxdl files
+#   plus these rules to the agent. The agent checks for conflicts and reports them.
+#
+# Operators used here:
+#   ~>   "should flow into / should align with"
+#   !~   "does not align with / conflicts with"
+#   each "for each item in a collection"
+#   ->   "implies / leads to"
+#   ?    "check if / assert"
+#   warn "non-fatal — flag but don't block"
+#   fail "fatal — must be resolved"
+
+# ── Cross-file consistency checks ─────────────────────────────────────────
+
+# Every component referenced in UX flows must be defined in ui.ctxdl
+each ux.flows.uses ->
+    ? exists(ui.components[this])
+    fail: "UX references '{this}' but it is not defined in ui.ctxdl"
+
+# Every data model referenced in UX must exist in db.ctxdl
+each ux.data.reads ->
+    ? exists(db.models[this])
+    fail: "UX references model '{this}' not found in db.ctxdl"
+
+# Every protected route or action must have a matching security rule
+each db.endpoints.protected ->
+    ? exists(security.rules[this])
+    warn: "'{this}' is marked protected but no rule found in security.ctxdl"
+
+# UI animations must respect UX motion preferences
+ui.animation !~ ux.a11y.motion ->
+    warn: "ui.ctxdl defines animations that may conflict with ux.ctxdl motion rules"
+
+# DB storage strategy must align with security constraints
+db.storage ~> security.storage ->
+    ? db.storage.sensitive !~ security.sensitive-data.allowed
+    fail: "db.ctxdl stores sensitive data in a method disallowed by security.ctxdl"
+
+# ── Completeness checks ───────────────────────────────────────────────────
+
+# Warn if standard context files are missing
+? exists(context/ui.ctxdl)       || warn: "ui.ctxdl missing — design system undefined"
+? exists(context/db.ctxdl)       || warn: "db.ctxdl missing — data model undefined"
+? exists(context/ux.ctxdl)       || warn: "ux.ctxdl missing — user flows undefined"
+? exists(context/security.ctxdl) || warn: "security.ctxdl missing — security rules undefined"
+
+# ── Impact simulation hints ───────────────────────────────────────────────
+# When a context file changes, flag which other files may be affected.
+
+on.change(db.models) ->
+    check: ux.data.reads       # UX flows referencing changed models
+    check: security.rules      # Security rules scoped to changed models
+    report: "DB model change — review UX flows and security rules for impact"
+
+on.change(ui.components) ->
+    check: ux.flows.uses       # UX flows referencing changed components
+    report: "UI component change — review UX flows for visual consistency"
+
+on.change(security.rules) ->
+    check: db.endpoints.protected
+    report: "Security rule change — review all protected endpoints"

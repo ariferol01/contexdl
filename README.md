@@ -2,7 +2,7 @@
 
 # ContextDL
 
-### Don't write prompts. Express intent.
+### Your project's context doesn't belong in a prompt. It belongs in your repo.
 
 <!-- GIF PLACEHOLDER: Replace with your demo GIF -->
 <!-- ![ContextDL Demo](./assets/demo.gif) -->
@@ -18,25 +18,25 @@
 
 ---
 
-## What is ContextDL?
+## You've felt this pain
 
-ContextDL is an experimental **semantic intent language** and **MCP workflow** that creates a **living map of your project** — readable by both humans and AI agents.
+You switch AI tools. Your context is gone.
 
-Instead of writing verbose prompts that explain your project from scratch every session, you define your design system, data models, user flows, and business logic once — in compact `.ctxdl` files. Your AI agent reads this map at the start of every session and instantly understands the full shape of your project.
+A teammate opens the same project. They start from scratch.
 
-**No fixed syntax. No grammar to memorize. Just meaning.**
+You start a new session. You explain the same design system. Again.
 
-```text
-payment.completed.fail.retry3.notify.support
-```
+The AI generates a component with the wrong font. Again.
+
+You write a 300-word prompt. The AI hallucinates something inconsistent with your existing code. Again.
+
+**None of this is the AI's fault. The AI never had a map.**
 
 ---
 
-## The core idea — a semantic project map
+## What ContextDL does
 
-The most important thing ContextDL does is not save tokens.
-
-It gives your AI agent **a map**.
+ContextDL gives your project a **living semantic map** — a set of compact, human-readable `.ctxdl` files that live inside your repository and describe what your project *is*:
 
 ```
 📁 context/
@@ -47,197 +47,42 @@ It gives your AI agent **a map**.
 └── payment.ctxdl   ← payment flows, states, error handling
 ```
 
-When the agent loads these files at the start of a session, it sees the entire architecture of your project — in a single pass, with minimal tokens. Not just what you said today. What your project *is*.
+An AI agent reads these files at the start of every session. In one pass. With minimal tokens. And it knows everything.
 
-### Concentrated context — faster, wider, more accurate analysis
-
-There's an important difference between giving an LLM **a lot of context** and giving it **the right context**.
-
-Verbose prose descriptions are large, loosely structured, and full of filler. An LLM has to read through all of it to extract the facts that matter.
-
-A semantic map is compact, structured, and dense with meaning. The LLM can scan the entire project shape in a fraction of the tokens — and reason about it more directly, with less noise.
-
-This means:
-- **Wider scope per session** — more of your project fits in the context window
-- **Faster analysis** — less parsing, more reasoning
-- **Easier to update** — change one line in `ui.ctxdl` and the entire project context is updated. No rewriting documentation. No re-explaining anything.
-
-A `ui.ctxdl` update takes seconds. The equivalent change in prose documentation might take hours — and might still be misunderstood.
-
-### What changes when the agent has a map
-
-**Without a map (today):**
-```
-Session 1:  "My design system uses Inter, dark mode, accent #6C63FF..."
-Session 2:  "Remember, we use Inter font and dark mode..."
-Session 3:  "The color palette is — actually let me describe it again..."
-Session 47: Component generated with wrong font. Again.
-```
-
-**With a ContextDL map:**
-```
-Session 1:   Agent loads ui.ctxdl → full design system known.
-Session 47:  Agent loads ui.ctxdl → still the same. Always consistent.
-Every new feature: built against the same map. Zero drift.
-```
+No re-explaining. No drift. No wrong font.
 
 ---
 
-## What the map enables — beyond code generation
+## Tool-agnostic. Forever.
 
-### 🗺️ Instant project understanding
+This is the part that makes it different from everything else.
 
-Hand a new AI agent your `/context` folder. Without a single explanation, it understands:
-- Your entire design system
-- Your data architecture
-- How users flow through the application
-- What your security constraints are
+Cursor has `.cursorrules`. Claude has project knowledge. GitHub Copilot has workspace indexing.
 
-This works for any agent — Claude, GPT, Gemini, local models.
+**None of them travel with you.**
 
-### 📚 Automatic documentation
+Switch tools? Context gone. New team member uses a different editor? Starts from scratch. Use two AI assistants at the same time? Inconsistent.
 
-Give your `.ctxdl` files to an agent and ask:
+ContextDL context lives in your **git repository**.
 
-```text
-"Generate technical documentation for this project based on the context files."
+It travels with every clone, every branch, every team member, every tool — as long as it supports MCP.
+
+```
+git clone your-project → context is there
+New developer joins    → context is there
+Switch from Cursor to Claude Desktop → context is there
+Run two agents in parallel → same context, both
 ```
 
-The agent produces accurate, consistent documentation from the semantic map — not from guesses.
-
-### 🤖 Chatbot and support integration
-
-After you go live, give your `.ctxdl` files to a customer-facing chatbot:
-
-```text
-"Here are the context files for this application. Use them to answer
-questions about what the product does, how it works, and what features it has."
-```
-
-The chatbot instantly knows your entire product's capabilities — because the map describes them precisely. No manual FAQ writing. No training on outdated docs.
-
-### 👥 Zero-effort team onboarding
-
-A new developer joins the team. Instead of weeks of knowledge transfer:
-
-```text
-"Read the /context folder. Ask me what's unclear."
-```
-
-The semantic map contains everything an agent — or a human — needs to understand what was built, why it works the way it does, and how to extend it consistently.
-
-### 🔍 Codebase archaeology
-
-Large, undocumented legacy project? Ask the agent to scan it and generate `.ctxdl` files:
-
-```text
-"Analyze this codebase and create context files that describe
-the design system, data models, user flows, and business rules."
-```
-
-The agent produces a compact, machine-readable understanding of code that may have no documentation at all.
+The map belongs to the project. Not to the tool.
 
 ---
 
-## Token efficiency — a consequence, not the goal
+## Write it in whatever language you already think in
 
-When you have a semantic map, token savings happen automatically.
+ContextDL has no official syntax. No grammar to learn.
 
-But there's a deeper hypothesis here.
-
-### The intent map hypothesis
-
-Large language models are typically given verbose, unstructured natural language as context. The hypothesis behind ContextDL is that **a structured, high-density intent map may be genuinely easier for an LLM to reason about** than an equivalent volume of prose.
-
-When you give an LLM a 500-token description of your UI system written in natural language, it has to:
-- Parse the prose
-- Extract the relevant facts
-- Resolve ambiguities in phrasing
-- Infer structure from unstructured text
-
-When you give it a `ui.ctxdl` file:
-```text
-theme: dark, accent=#6C63FF
-font: Inter, system-ui
-button.primary: accent-bg, white-text, rounded-md
-```
-
-The structure is already there. The intent is direct. There's nothing to infer.
-
-This may reduce hallucination, improve consistency, and make the model's job easier — not just cheaper.
-
-**This is a hypothesis. It has not been proven.**
-
-We believe it's worth testing experimentally. If you run comparisons — consistency scores, error rates, output quality — share the data.
-
----
-
-### Hypothetical token savings — illustrative estimates
-
-> ⚠️ **These numbers are speculative.** They are rough estimates meant to illustrate the scale of potential savings, not measured benchmarks. Real savings depend on your project size, team size, session length, and LLM tokenizer.
-
-#### Per-session savings (single developer, medium project)
-
-| Context loaded without ContextDL | Estimated tokens | With ContextDL (`.ctxdl` files) | Estimated tokens |
-|---|---|---|---|
-| UI design system description | ~250–400 | `ui.ctxdl` | ~30–60 |
-| Data model explanation | ~150–300 | `db.ctxdl` | ~25–50 |
-| UX flow description | ~100–200 | `ux.ctxdl` | ~20–40 |
-| Security rules | ~80–150 | `security.ctxdl` | ~15–30 |
-| **Total per session** | **~580–1050** | | **~90–180** |
-| **Estimated savings per session** | | | **~75–85%** |
-
-#### Cumulative savings (hypothetical, illustrative only)
-
-| Scenario | Sessions/month | Est. tokens saved/session | Est. monthly savings |
-|---|---|---|---|
-| Solo developer | 60 | ~600 | ~36,000 tokens |
-| 3-person team | 180 | ~600 | ~108,000 tokens |
-| 10-person team | 600 | ~600 | ~360,000 tokens |
-
-At GPT-4 pricing (~$0.01/1K input tokens), a 10-person team could hypothetically save ~$3.60/month in raw input costs — modest in isolation, but multiplied across a project's lifetime and combined with reduced hallucination and better consistency, potentially meaningful.
-
-> **None of this has been measured. We made no claims. We ran no benchmarks.**
->
-> If you test ContextDL against a baseline and share real numbers — token counts, latency, consistency scores, output quality ratings — **that's one of the most valuable contributions this project can receive.**
->
-> **[Open a PR with your benchmark data →](https://github.com/ariferol01/contexdl/pulls)**
-
----
-
-## Agents write the map too
-
-This is the part that changes the paradigm:
-
-**You don't write `.ctxdl` files alone.**
-
-Ask your agent to generate them from your existing codebase:
-
-```text
-"Scan this project and create:
-  context/ui.ctxdl     → extract design system, color tokens, component patterns
-  context/db.ctxdl     → extract data models, schema, storage patterns
-  context/ux.ctxdl     → extract user flows, interactions, navigation
-  context/security.ctxdl → extract auth rules, access control, rate limits"
-```
-
-The agent analyzes your existing code and writes compact, accurate semantic files that describe what your project already is. From that point forward, every agent session starts with full awareness of everything that was already built.
-
-As the project evolves, the agent updates the map. The shared understanding grows with the codebase.
-
-> **This is the new paradigm:** Not AI as a code generator. AI as a collaborator that reads and writes a shared semantic memory of your project.
-
----
-
-## Write in whatever syntax you already know
-
-This is important: **ContextDL has no official syntax.**
-
-You write in the style that feels natural to *you* — the language you already think in. A PHP developer writes PHP-like expressions. A Python developer writes Python-like flows. A product manager writes plain English. All of it is valid ContextDL.
-
-The syntax is not the point. The intent is.
-
----
+You write in the style that feels natural to *you* — whatever language you already know.
 
 **PHP developer:**
 ```php
@@ -249,40 +94,189 @@ Payment::Completed::Fail::Retry(3)::NotifySupport;
 payment.completed.fail.retry(3).notify.support
 ```
 
-**Ruby / method-chain style:**
-```text
-payment.completed.fail.retry(3).notify(:support)
-```
-
-**Conditional / flow style:**
+**Conditional / flow thinking:**
 ```text
 todo.add:
     if input.empty -> alert.error("Task cannot be empty")
-    else -> db.save -> ui.list.append
+    else -> db.save -> ui.list.prepend -> counter.update
 ```
 
-**Plain natural language:**
+**Plain English:**
 ```text
 when a user cancels an order, release reserved inventory and notify the warehouse
 ```
 
-**Terse dot notation:**
+If you know `if`, `else`, `each` — you already know ContextDL.
+
+Everything else is just project design thinking. And that's yours.
+
+> *"If you've written code for years, you already know ContextDL. You just didn't have a name for it."*
+
+---
+
+## What the map unlocks
+
+### ⚡ Instant project understanding — for any agent, any tool
+
+Hand any MCP-compatible AI agent your `/context` folder. Without a single explanation, it understands:
+- Your entire design system
+- Your data architecture
+- How users flow through the application
+- What your security constraints are
+
+Switch models, switch tools, onboard a new agent — the map is always there.
+
+### 📚 Automatic documentation — from the map you already have
+
 ```text
-payment.completed.fail.retry3.notify.support
+"Generate complete technical documentation for this project based on the context files."
 ```
 
-All of these describe the same intent. ContextDL doesn't care which one you use.
+Accurate. Consistent. No writing from scratch.
 
-Your agent normalizes them against the project map and renders the implementation.
+### 🤖 Chatbot and support integration — ship it with the product
 
-> If you've been writing code for years in a specific language, you already know how to write ContextDL.
-> You just didn't have a name for it.
+After you go live, give your `.ctxdl` files to a customer-facing chatbot:
+
+```text
+"Here are the context files for this product. Answer user questions about features and behavior."
+```
+
+The chatbot instantly knows your entire product — because the map describes exactly what it does. No manual FAQ. No training on outdated docs. No hallucinations about features that don't exist.
+
+### 👥 Zero-friction team onboarding
+
+New developer joins:
+
+```text
+"Read /context. Ask me what's unclear."
+```
+
+They have the complete mental model of the project in minutes. Not weeks.
+
+### 🔍 Legacy codebase archaeology
+
+Large, undocumented project? Let the agent scan it:
+
+```text
+"Analyze this codebase and generate context files that describe the design system,
+data models, user flows, and business rules."
+```
+
+Compact, machine-readable understanding of code that may have no documentation at all.
+
+### 🔁 Impact simulation — before you write a line
+
+Because the agent has the full project map, it can simulate:
+
+```text
+"If I change the payment model to support multi-currency,
+what else in the project would be affected?"
+```
+
+The agent scans the map and reports: *"This touches ux.ctxdl (checkout flow), security.ctxdl (currency validation), and db.ctxdl (transaction schema)."*
+
+Before you code. Before you break anything.
+
+---
+
+## The map validates itself
+
+This is where it gets interesting.
+
+`validate.ctxdl` is a special file that checks consistency *across* your other context files — written in the same ContextDL syntax:
+
+```text
+# Every component referenced in UX must exist in ui.ctxdl
+each ux.flows.uses ->
+    ? exists(ui.components[this])
+    fail: "UX references '{this}' not defined in ui.ctxdl"
+
+# Protected endpoints must have security rules
+each db.endpoints.protected ->
+    ? exists(security.rules[this])
+    warn: "'{this}' is protected but no rule found in security.ctxdl"
+
+# Simulate impact of changes
+on.change(db.models) ->
+    check: ux.data.reads
+    report: "DB model change — review UX flows and security rules"
+```
+
+Run `validate_context()` via MCP and the agent checks whether your map is internally consistent — and tells you what a change would impact before you make it.
+
+**ContextDL validates ContextDL. The map validates itself.**
+
+---
+
+## Agents write the map too
+
+You don't write `.ctxdl` files alone.
+
+Ask your agent to generate them from your existing codebase:
+
+```text
+"Scan this project and create context files:
+  context/ui.ctxdl     → design system, component patterns
+  context/db.ctxdl     → data models, storage strategy
+  context/ux.ctxdl     → user flows, interactions
+  context/security.ctxdl → auth rules, constraints"
+```
+
+As the project evolves, the agent writes new patterns back into the map.
+
+The shared understanding grows. Automatically.
+
+> **This is the new paradigm.** Not AI as a code generator. AI as a collaborator that reads and writes a shared semantic memory — versioned with your code, portable across every tool.
+
+---
+
+## A note on how LLMs process context
+
+There's a hypothesis behind ContextDL beyond token counts.
+
+LLMs are typically given verbose, unstructured prose as context. To use it, the model has to parse the language, extract relevant facts, resolve ambiguities, and infer structure from unstructured text.
+
+A structured semantic map is different. The structure is already there. The intent is direct. There's less noise to filter.
+
+This *may* mean:
+- **Wider scope per session** — more of your project fits in the context window
+- **Faster analysis** — less parsing, more reasoning
+- **Fewer hallucinations** — less ambiguity to misinterpret
+- **Easier to update** — one line changed in a `.ctxdl` file updates the entire project's context instantly
+
+This is a hypothesis. It has not been independently proven.
+
+---
+
+### Hypothetical token savings — illustrative estimates only
+
+> ⚠️ **These numbers are speculative** — rough estimates to illustrate scale, not measured benchmarks. Actual savings depend on project size, session length, model, and tokenizer.
+
+#### Per-session (single developer, medium project)
+
+| Context | Without ContextDL | With ContextDL |
+|---|---|---|
+| UI design system | ~250–400 tokens | ~30–60 tokens |
+| Data model | ~150–300 tokens | ~25–50 tokens |
+| UX flows | ~100–200 tokens | ~20–40 tokens |
+| Security rules | ~80–150 tokens | ~15–30 tokens |
+| **Total** | **~580–1050 tokens** | **~90–180 tokens** |
+| **Estimated saving** | | **~75–85%** |
+
+The real value isn't one session. It's the cumulative elimination of repetition across every session, every feature, every developer, across the entire lifetime of the project.
+
+> **None of this has been measured. We made no claims. We ran no benchmarks.**
+>
+> If you test ContextDL against a baseline, your data is one of the most valuable contributions this project can receive.
+>
+> **[Share your benchmark →](https://github.com/ariferol01/contexdl/pulls)**
 
 ---
 
 ## Complete workflow
 
-### Step 1 — Define your project map (once)
+### Step 1 — Create the map (or let the agent generate it)
 
 ```
 your-project/
@@ -290,20 +284,18 @@ your-project/
     ├── ui.ctxdl
     ├── ux.ctxdl
     ├── db.ctxdl
-    └── security.ctxdl
+    ├── security.ctxdl
+    └── validate.ctxdl   ← optional: the map that validates the map
 ```
 
-Or let the agent generate these from your existing codebase.
+### Step 2 — Connect the MCP server
 
-### Step 2 — Start the MCP server
-
-Connect to the hosted server or run locally.
-
-### Step 3 — Agent loads the full map
+### Step 3 — Agent loads everything in one call
 
 ```
-read_live_context() → all .ctxdl files → agent has panoramic project awareness
-get_agent_contract() → behavior rules → agent knows how to act
+read_live_context()  → full project map, one pass
+get_agent_contract() → behavior rules
+validate_context()   → consistency check + impact simulation
 ```
 
 ### Step 4 — Express intent
@@ -315,50 +307,13 @@ user.signup:
     if invalid -> alert.field-errors
 ```
 
-### Step 5 — Agent renders context-aware implementation
+### Step 5 — Consistent implementation, every time
 
-Every component matches your design system. Every query follows your data model. Every flow respects your UX rules. Automatically.
+Design system followed. Data model respected. UX rules applied. Automatically.
 
 ### Step 6 — Map grows with the project
 
-When new patterns emerge, the agent writes them back into the relevant `.ctxdl` file. The map stays current.
-
----
-
-## Live example — Todo app
-
-**`context/ui.ctxdl`** — defined once:
-```text
-theme: dark, accent=#6C63FF
-font: Inter, system-ui
-animation: fade-in 200ms ease
-button.primary: accent-bg, white-text, rounded-md
-input: border-subtle, focus-ring-accent
-```
-
-**`context/db.ctxdl`** — defined once:
-```text
-todo: {id, text, completed, createdAt, priority}
-storage: localStorage
-```
-
-**Your intent going forward:**
-```text
-todo.add:
-    if input.empty -> alert.error("Task cannot be empty")
-    else -> db.save -> ui.list.prepend -> input.clear -> counter.update
-
-todo.complete:
-    db.toggle(completed) -> ui.item.strikethrough -> counter.update
-
-todo.delete:
-    confirm.yes -> db.remove -> ui.item.fade_out
-
-todo.filter:
-    tabs: [all, active, completed] -> ui.list.rerender
-```
-
-Five intents. A complete application. The agent fills everything else from the map.
+New patterns → agent updates the relevant `.ctxdl` file → map stays current.
 
 ---
 
@@ -366,12 +321,11 @@ Five intents. A complete application. The agent fills everything else from the m
 
 ### 🌐 Option 1 — Hosted MCP (recommended, free)
 
-No installation. Connect directly:
+No installation required.
 
 **`https://apidlai.com/contextdl/mcp`**
 
-Add to Claude Desktop (`claude_desktop_config.json`):
-
+Claude Desktop (`claude_desktop_config.json`):
 ```json
 {
   "mcpServers": {
@@ -385,7 +339,7 @@ Add to Claude Desktop (`claude_desktop_config.json`):
 
 ---
 
-### 🐍 Option 2 — Local Python server
+### 🐍 Option 2 — Local Python
 
 ```bash
 pip install contexdl
@@ -414,7 +368,7 @@ Claude Desktop config:
 
 ---
 
-### 📦 Option 3 — Local npm server
+### 📦 Option 3 — Local npm
 
 ```bash
 npx @contexdl/mcp
@@ -439,53 +393,62 @@ Cursor / Windsurf / VS Code:
 ## The new paradigm
 
 ```
-Old way:
+Before ContextDL:
 
-Developer → explains project from scratch → AI → code
-(Repeat. Every session. Every feature. Every developer.)
+Developer explains project → AI generates code → context lost next session
+Developer explains again  → AI generates code → context lost next session
+New developer joins       → explains from scratch
+Switch tools              → explains from scratch
+─────────────────────────────────────────────────
+Repetition. Drift. Inconsistency.
 
 
-ContextDL way:
+With ContextDL:
 
-        ┌──────────────────────────────────────┐
-        │       /context  (the project map)    │
-        │  ui.ctxdl  db.ctxdl  ux.ctxdl  ...  │
-        │  written by: developer + agent       │
-        └──────────────┬───────────────────────┘
+        ┌─────────────────────────────────────────┐
+        │          /context  (the project map)    │
+        │  ui · db · ux · security · validate     │
+        │  versioned in git · travels everywhere  │
+        │  written by: developer + agent          │
+        └──────────────┬──────────────────────────┘
                        │ loaded once per session
+                       │ by any MCP-compatible tool
                        ▼
-        ┌──────────────────────────────────────┐
-        │       ContextDL MCP Server           │
-        │  read_live_context()                 │
-        │  get_agent_contract()                │
-        │  write_context_file()                │
-        └──────────────┬───────────────────────┘
+        ┌─────────────────────────────────────────┐
+        │          ContextDL MCP Server           │
+        │  read_live_context()                    │
+        │  validate_context()   ← map validates   │
+        │  write_context_file() ← agent updates   │
+        └──────────────┬──────────────────────────┘
                        │
-         ┌─────────────┴──────────────┐
-         ▼                            ▼
-   compact intent              full project map
-   (what you write)            (what agent knows)
-         │                            │
-         └─────────────┬──────────────┘
+         ┌─────────────┴───────────────┐
+         ▼                             ▼
+   compact intent               full project map
+   (what you write)             (what agent knows)
+         │                             │
+         └─────────────┬───────────────┘
                        ▼
                   AI Agent
                        │
-         ┌─────────────┴──────────────┐
-         ▼             ▼              ▼
-   consistent      automatic       instant
-   code output  documentation  chatbot context
+         ┌─────────────┼───────────────┐
+         ▼             ▼               ▼
+   consistent      impact          automatic
+   code output   simulation     documentation
+─────────────────────────────────────────────────
+One map. Every tool. Every session. Every developer.
 ```
 
 ---
 
 ## Who is this for?
 
-- Developers working with AI agents daily who are tired of repeating context
-- Teams who want agent consistency across sessions and members
-- Anyone building on top of an undocumented or complex codebase
+- Developers tired of re-explaining their project every session
+- Teams that want context consistency across tools and team members
+- Anyone who switches AI tools and loses context each time
+- Developers who want to simulate feature impact before writing code
+- Anyone building on a legacy or undocumented codebase
 - People interested in MCP, semantic programming, or vibe coding
-- Developers who want a chatbot that knows their product without manual FAQ writing
-- Anyone curious enough to test whether this idea holds up
+- Product teams who want a chatbot that actually knows the product
 
 **Disagreeing and testing it is a valid contribution.**
 
@@ -493,12 +456,12 @@ ContextDL way:
 
 ## Contributing
 
-- Try it and report what happened
+- Try it. Report what happened — good or bad.
 - Generate `.ctxdl` files for your project and share the patterns
-- Run token benchmarks and share real numbers
-- Propose intent notation for specific domains
-- Write examples: auth, e-commerce, DevOps, SaaS, data pipelines
-- Open issues, open PRs, break things
+- Run token and consistency benchmarks — share real numbers
+- Write domain-specific examples: auth, e-commerce, DevOps, SaaS, data pipelines
+- Propose validation rules for specific domains
+- Open issues. Open PRs. Break things.
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
@@ -506,9 +469,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## ☕ Support the experiment
 
-ContextDL is an independent open-source experiment — a minimal idea that took months of thinking, testing, and iteration to take shape. It lives entirely on community support.
+ContextDL is an independent open-source project — a minimal idea that took months of thinking, testing, and iteration to take shape. It lives entirely on community support.
 
-If it saved you from repeating yourself — or gave your agent a project awareness it didn't have before — a small contribution means a lot:
+If it saved you from repeating yourself, gave your agent a project awareness it didn't have before, or just made you think differently about how AI tools and codebases relate to each other — a small contribution means a lot:
 
 <div align="center">
 
@@ -534,7 +497,7 @@ If it saved you from repeating yourself — or gave your agent a project awarene
 
 **ContextDL**
 
-*Don't write prompts. Express intent. Build the map.*
+*Your project's context belongs in your repo.*
 
 [☕ Sponsor](https://github.com/sponsors/ariferol01) · [Issues](https://github.com/ariferol01/contexdl/issues) · [Discussions](https://github.com/ariferol01/contexdl/discussions) · [Hosted MCP](https://apidlai.com/contextdl/mcp)
 
