@@ -204,7 +204,7 @@ This philosophical foundation drives the three core pillars of ContextDL:
 
 1. **Model Everything:** Not just code. UI, workflows, logical processes, future plans, and behaviors—all phenomena can be coded and modeled with ContextDL.
 2. **Self-Validation:** Because context is structured, the map can reason about and validate itself.
-3. **Live Sync Across Agents:** Context is just text. Through Git, it becomes a live, shared semantic brain across multiple developers and AI agents.
+3. **Live Sync Across Agents:** Context is structured ContextDL code. Through Git, it becomes a live, shared semantic brain across multiple developers and AI agents.
 
 ---
 
@@ -263,7 +263,7 @@ This is not just validation. This is the map reasoning about itself.
 
 ### 🌍 3. Live Sync Across Agents
 
-ContextDL is just a set of text files. That means it inherits the most powerful version control system on the planet: Git.
+ContextDL is written in structured `.ctxdl` code files. Because they live directly in your repository, they inherit the most powerful version control system on the planet: Git.
 
 When you use ContextDL, your context is not locked inside Cursor, Claude, or Copilot. 
 
