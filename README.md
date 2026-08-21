@@ -24,12 +24,38 @@
 <div align="center">
   <b><a href="#">README</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="#superpowers-unlocked">SUPERPOWERS</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="#quick-start-how-to-use">HOW TO USE</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="./CONTRIBUTING.md">CONTRIBUTING</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="./LICENSE">LICENSE</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="#connect-your-ai-agent">MCP</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="#%E2%98%95-support-the-experiment">SUPPORT</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
   <b><a href="#the-map-validates-itself">WTF?</a></b>
 </div>
+
+---
+
+## Quick Start (How to use)
+
+**1. Run the MCP server** (No installation required)
+```bash
+npx -y @contexdl/mcp
+```
+
+**2. Connect your AI Agent** (Cursor, Claude, Windsurf, etc.)
+Point your editor's MCP configuration to the local server or use our free hosted endpoint: `https://apidlai.com/contextdl-mcp`
+
+**3. Express your intent**
+Start writing in a `.ctxdl` file. 
+
+```text
+user.login:
+    validate: email, password
+    if success -> db.session.create -> redirect(/dashboard)
+    if fail -> ui.alert.error("Invalid credentials")
+```
+
+> **Wait, what is this syntax?** 
+> *Syntax doesn't matter.* Write it in whatever language you are already familiar with (Python, JS, YAML) or just use natural language flow. The AI agent will understand it perfectly. The rest of this document explains the deep philosophy behind this.
 
 ---
 
