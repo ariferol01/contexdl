@@ -16,6 +16,10 @@
 [![MCP Compatible](https://img.shields.io/badge/MCP-compatible-purple.svg)](https://modelcontextprotocol.io)
 [![Experimental](https://img.shields.io/badge/status-experimental-orange.svg)]()
 [![☕ Sponsor](https://img.shields.io/badge/☕%20Sponsor-Support%20ContextDL-ff813f?style=flat)](https://github.com/sponsors/ariferol01)
+[![🌿 Green AI](https://img.shields.io/badge/🌿_Green_AI-Less_tokens,_less_compute-16a34a.svg)]()
+
+<br>
+<i>🌿 <b>Green AI:</b> By compressing context and eliminating repetitive prompting, ContextDL aims to reduce the compute energy wasted in AI sessions.</i>
 
 </div>
 
