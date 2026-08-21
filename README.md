@@ -19,6 +19,16 @@
 
 </div>
 
+---
+
+<div align="center">
+  <b><a href="#">README</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="./CONTRIBUTING.md">CONTRIBUTING</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="./LICENSE">LICENSE</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="#connect-your-ai-agent">MCP</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="#%E2%98%95-support-the-experiment">SUPPORT</a></b>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+  <b><a href="#the-map-validates-itself-wtf">WTF?</a></b>
+</div>
 
 ---
 
@@ -184,7 +194,7 @@ Before you code. Before you break anything.
 
 ---
 
-## The map validates itself
+## The map validates itself (WTF?)
 
 Your context files depend on each other.
 
@@ -224,6 +234,19 @@ This is not just validation. This is the map reasoning about itself.
 > *context → validation → dependency awareness → impact analysis*
 
 **ContextDL validates ContextDL. The map validates itself.**
+
+---
+
+### 🌍 Git Persistence & Live Sync Across Agents
+
+ContextDL is just a set of text files. That means it inherits the most powerful version control system on the planet: Git.
+
+When you use ContextDL, your context is not locked inside Cursor, Claude, or Copilot. 
+
+**Push, Pull, and Live Sync:**
+- You push your `.ctxdl` files to Git. Your teammate pulls them. Their AI agent instantly knows exactly what your AI agent knew.
+- Running two agents in parallel? Both read the same `.ctxdl` map. One updates a pattern and pushes it; the other pulls it and is instantly in sync.
+- **Vurucu Gerçek:** *You don't need a cloud service for context synchronization. Git is your live semantic brain, shared seamlessly across multiple agents and developers.*
 
 ---
 
